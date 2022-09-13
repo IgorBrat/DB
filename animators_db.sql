@@ -18,11 +18,27 @@ CREATE SCHEMA IF NOT EXISTS `boklach` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8
 USE `boklach` ;
 
 -- -----------------------------------------------------
+-- Table `boklach`.`region`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `boklach`.`region` (
+  `name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`name`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `boklach`.`city`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `boklach`.`city` (
   `name` VARCHAR(40) NOT NULL,
-  PRIMARY KEY (`name`))
+  `region_name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`name`, `region_name`),
+  INDEX `region_name` (`region_name` ASC) VISIBLE,
+  CONSTRAINT `city_ibfk_1`
+    FOREIGN KEY (`region_name`)
+    REFERENCES `boklach`.`region` (`name`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -36,14 +52,17 @@ CREATE TABLE IF NOT EXISTS `boklach`.`agency` (
   `name` VARCHAR(50) NOT NULL,
   `owner` VARCHAR(50) NOT NULL,
   `city_name` VARCHAR(40) NOT NULL,
+  `region_name` VARCHAR(50) NOT NULL,
   `hq_address` VARCHAR(50) NOT NULL,
   `phone` VARCHAR(12) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `agency_city` (`city_name` ASC) VISIBLE,
-  CONSTRAINT `agency_city`
-    FOREIGN KEY (`city_name`)
-    REFERENCES `boklach`.`city` (`name`))
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `agency_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
+  CONSTRAINT `agency_city_region`
+    FOREIGN KEY (`city_name` , `region_name`)
+    REFERENCES `boklach`.`city` (`name` , `region_name`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
@@ -60,12 +79,15 @@ CREATE TABLE IF NOT EXISTS `boklach`.`animator` (
   `email` VARCHAR(100) NOT NULL,
   `phone` VARCHAR(12) NOT NULL,
   `city_name` VARCHAR(40) NOT NULL,
+  `region_name` VARCHAR(50) NOT NULL,
   `salary_per_hour` DECIMAL(7,2) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `animator_city` (`city_name` ASC) VISIBLE,
-  CONSTRAINT `animator_city`
-    FOREIGN KEY (`city_name`)
-    REFERENCES `boklach`.`city` (`name`))
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
+  INDEX `animator_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
+  CONSTRAINT `animator_city_region`
+    FOREIGN KEY (`city_name` , `region_name`)
+    REFERENCES `boklach`.`city` (`name` , `region_name`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8mb4
@@ -148,14 +170,17 @@ CREATE TABLE IF NOT EXISTS `boklach`.`client` (
   `phone` VARCHAR(12) NOT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
   `city_name` VARCHAR(40) NOT NULL,
+  `region_name` VARCHAR(50) NOT NULL,
   `street_address` VARCHAR(50) NULL DEFAULT NULL,
   `client_card_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `client_city` (`city_name` ASC) VISIBLE,
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
   INDEX `client_client_card` (`client_card_id` ASC) VISIBLE,
-  CONSTRAINT `client_city`
-    FOREIGN KEY (`city_name`)
-    REFERENCES `boklach`.`city` (`name`),
+  INDEX `client_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
+  CONSTRAINT `client_city_region`
+    FOREIGN KEY (`city_name` , `region_name`)
+    REFERENCES `boklach`.`city` (`name` , `region_name`),
   CONSTRAINT `client_client_card`
     FOREIGN KEY (`client_card_id`)
     REFERENCES `boklach`.`client_card` (`id`))
@@ -208,15 +233,16 @@ CREATE TABLE IF NOT EXISTS `boklach`.`order` (
   `datetime` TIMESTAMP NOT NULL,
   `duration` TIME NOT NULL,
   `city_name` VARCHAR(40) NOT NULL,
+  `region_name` VARCHAR(50) NOT NULL,
   `street_address` VARCHAR(50) NOT NULL,
   `total_price` DECIMAL(8,2) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `order_city` (`city_name` ASC) VISIBLE,
   INDEX `order_client` (`client_id` ASC) VISIBLE,
   INDEX `order_event` (`event_id` ASC) VISIBLE,
-  CONSTRAINT `order_city`
-    FOREIGN KEY (`city_name`)
-    REFERENCES `boklach`.`city` (`name`),
+  INDEX `order_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
+  CONSTRAINT `order_city_region`
+    FOREIGN KEY (`city_name` , `region_name`)
+    REFERENCES `boklach`.`city` (`name` , `region_name`),
   CONSTRAINT `order_client`
     FOREIGN KEY (`client_id`)
     REFERENCES `boklach`.`client` (`id`),
