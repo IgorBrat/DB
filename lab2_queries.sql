@@ -4,7 +4,7 @@ USE labor_sql;
 
 SELECT * FROM printer
 WHERE price<300 AND type<>"Matrix"
-ORDER BY type;
+ORDER BY type DESC;
 
 -- Task 2 
 
@@ -22,7 +22,7 @@ WHERE hd <= 8;
 SELECT DISTINCT maker FROM product
 WHERE type = "pc" and maker IN
 (SELECT maker FROM product
-WHERE type = "printer");
+WHERE type = "laptop");
 
 -- Task 5
 
