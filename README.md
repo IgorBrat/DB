@@ -4,7 +4,7 @@
 - **DB "Computer firm".** Get info about printers which are not matrix and their price < 300$. Order descending by *type*.
 - **DB "Ships".** Get *name, launched* of ships, names of which don`t end with "a".
 - **DB "Computer firm".** Get *maker, type, speed, hd* of PCs, which has hd <= 8Gb.
-- **DB "Computer firm". Get *maker* which produce both PCs and laptops (using **IN**).
+- **DB "Computer firm".** Get *maker* which produce both PCs and laptops (using **IN**).
 - **DB "Ships".** Get *class* of ships, that have at least one sunk ship (ship can have the name of its` class if there is no specified name).
 - **DB "Ships".** Get *date* of battles in format "y.m.d".
 - **DB "Computer firm".** Get *maker, price* of the cheapest colourful printers.
