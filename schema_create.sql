@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`city` (
   `name` VARCHAR(40) NOT NULL,
   `region_name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`name`, `region_name`),
-  INDEX `region_name` (`region_name` ASC) VISIBLE,
   CONSTRAINT `city_region`
     FOREIGN KEY (`region_name`)
     REFERENCES `boklach`.`region` (`name`))
@@ -52,10 +51,7 @@ CREATE TABLE IF NOT EXISTS `boklach`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `phone` VARCHAR(12) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`, `phone`, `email`),
-  UNIQUE INDEX `phone` (`phone` ASC) VISIBLE,
-  UNIQUE INDEX `email` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+  PRIMARY KEY (`id`, `phone`, `email`))
 AUTO_INCREMENT = 1;
 
 
@@ -75,12 +71,7 @@ CREATE TABLE IF NOT EXISTS `boklach`.`agency` (
   `phone` VARCHAR(12) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
   INDEX `agency_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
-  INDEX `agency_user` (`user_id` ASC, `phone` ASC, `email` ASC) VISIBLE,
   CONSTRAINT `agency_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -106,11 +97,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`animator` (
   `region_name` VARCHAR(50) NOT NULL,
   `salary_per_hour` DECIMAL(7,2) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  INDEX `animator_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
-  INDEX `animator_user` (`user_id` ASC, `phone` ASC, `email` ASC) VISIBLE,
   CONSTRAINT `animator_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -129,7 +115,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`agency_animator` (
   `agency_id` INT NOT NULL,
   `animator_id` INT NOT NULL,
   PRIMARY KEY (`animator_id`, `agency_id`),
-  INDEX `animator_agency_agency` (`agency_id` ASC) VISIBLE,
   CONSTRAINT `animator_agency_agency`
     FOREIGN KEY (`agency_id`)
     REFERENCES `boklach`.`agency` (`id`),
@@ -173,7 +158,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`card_event_discount` (
   `event_id` INT NOT NULL,
   `discount_percentage` DECIMAL(4,2) NOT NULL,
   PRIMARY KEY (`client_card_id`, `event_id`),
-  INDEX `card_event_discount_event` (`event_id` ASC) VISIBLE,
   CONSTRAINT `card_event_discount_client_card`
     FOREIGN KEY (`client_card_id`)
     REFERENCES `boklach`.`client_card` (`id`),
@@ -201,12 +185,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`client` (
   `street_address` VARCHAR(50) NULL DEFAULT NULL,
   `client_card_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  INDEX `client_client_card` (`client_card_id` ASC) VISIBLE,
-  INDEX `client_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
-  INDEX `client_user` (`user_id` ASC, `phone` ASC, `email` ASC) VISIBLE,
   CONSTRAINT `client_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -241,7 +219,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`event_equipment` (
   `equipment_id` INT NOT NULL,
   `quantity` INT NOT NULL,
   PRIMARY KEY (`event_id`, `equipment_id`),
-  INDEX `event_equipment_equipment` (`equipment_id` ASC) VISIBLE,
   CONSTRAINT `event_equipment_equipment`
     FOREIGN KEY (`equipment_id`)
     REFERENCES `boklach`.`equipment` (`id`),
@@ -267,9 +244,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`order` (
   `street_address` VARCHAR(50) NOT NULL,
   `total_price` DECIMAL(8,2) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `order_client` (`client_id` ASC) VISIBLE,
-  INDEX `order_event` (`event_id` ASC) VISIBLE,
-  INDEX `order_city_region` (`city_name` ASC, `region_name` ASC) VISIBLE,
   CONSTRAINT `order_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -292,7 +266,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`order_agency_animator` (
   `agency_id` INT NOT NULL,
   `animator_id` INT NOT NULL,
   PRIMARY KEY (`order_id`, `agency_id`, `animator_id`),
-  INDEX `agency_animator` (`agency_id` ASC, `animator_id` ASC) VISIBLE,
   CONSTRAINT `agency_animator`
     FOREIGN KEY (`agency_id` , `animator_id`)
     REFERENCES `boklach`.`agency_animator` (`agency_id` , `animator_id`),
