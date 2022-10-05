@@ -71,7 +71,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`agency` (
   `phone` VARCHAR(12) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `agency_name` (`name` ASC) VISIBLE,
   CONSTRAINT `agency_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -97,7 +96,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`animator` (
   `region_name` VARCHAR(50) NOT NULL,
   `salary_per_hour` DECIMAL(7,2) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `animator_surname` (`surname` ASC) VISIBLE,
   CONSTRAINT `animator_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -186,7 +184,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`client` (
   `street_address` VARCHAR(50) NULL DEFAULT NULL,
   `client_card_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `client_surname` (`surname` ASC) VISIBLE,
   CONSTRAINT `client_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
@@ -550,6 +547,10 @@ INSERT INTO order_agency_animator (order_id, agency_id, animator_id) VALUES (9, 
 INSERT INTO order_agency_animator (order_id, agency_id, animator_id) VALUES (9, 6, 10);
 INSERT INTO order_agency_animator (order_id, agency_id, animator_id) VALUES (10, 1, 1);
 INSERT INTO order_agency_animator (order_id, agency_id, animator_id) VALUES (10, 1, 3);
+
+ALTER TABLE agency ADD INDEX agency_name(name ASC);
+ALTER TABLE animator ADD INDEX animator_surname(surname ASC);
+ALTER TABLE client ADD INDEX client_surname(surname ASC);
 
 SHOW INDEX FROM agency;
 SHOW INDEX FROM animator;
