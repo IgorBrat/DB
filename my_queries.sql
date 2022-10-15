@@ -31,11 +31,11 @@ WHERE region_name IN ("Chernivetska", "Lvivska", "Rivnenska", "Ivano-Frankivska"
 SELECT event.name FROM event
 JOIN event_equipment on event.id = event_id
 JOIN equipment on equipment.id = equipment_id
-WHERE equipment_id = 3 AND event.name IN
+WHERE equipment_id = 1 AND event.name IN
 (SELECT event.name FROM event
 JOIN event_equipment on event.id = event_id
 JOIN equipment on equipment.id = equipment_id
-WHERE equipment_id = 10)
+WHERE equipment_id = 2)
 ORDER BY event.name; 
 
 -- Task 6: Get list of animators which has no order currently
