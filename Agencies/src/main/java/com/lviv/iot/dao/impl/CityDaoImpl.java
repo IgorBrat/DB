@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CityDaoImpl implements CityDao {
     private static final String FIND_ALL = "SELECT * FROM city";
-    private static final String CREATE = "INSERT city(city, region_name) VALUES (?)";
-    private static final String UPDATE = "UPDATE city SET city=?";
-    private static final String DELETE = "DELETE FROM city WHERE city=?";
-    private static final String FIND_BY_ID = "SELECT * FROM city WHERE city=?";
+    private static final String CREATE = "INSERT city(name, region_name) VALUES (?, ?)";
+    private static final String UPDATE = "UPDATE city SET name=?, region_name=? WHERE name=? AND region_name=?";
+    private static final String DELETE = "DELETE FROM city WHERE name=? AND region_name=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -26,29 +27,17 @@ public class CityDaoImpl implements CityDao {
     }
 
     @Override
-    public Optional<City> findById(String cityName) {
-        Optional<City> city;
-        try {
-            city = Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID,
-                    BeanPropertyRowMapper.newInstance(City.class), cityName));
-        } catch (EmptyResultDataAccessException e) {
-            city = Optional.empty();
-        }
-        return city;
-    }
-
-    @Override
     public int create(City city) {
         return jdbcTemplate.update(CREATE, city.getName(), city.getRegionName());
     }
 
     @Override
     public int update(String cityName, String regionName, City city) {
-        return 0;
+        return jdbcTemplate.update(UPDATE, city.getName(), city.getRegionName(), cityName, regionName);
     }
 
     @Override
-    public int delete(String s) {
-        return 0;
+    public int delete(String cityName, String regionName) {
+        return jdbcTemplate.update(DELETE, cityName, regionName);
     }
 }
