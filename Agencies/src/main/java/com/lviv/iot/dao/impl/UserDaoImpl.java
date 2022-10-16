@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Repository
 public class UserDaoImpl implements UserDao {
     private static final String FIND_ALL = "SELECT * FROM user";
     private static final String CREATE = "INSERT user(phone, email) VALUES (?,?)";

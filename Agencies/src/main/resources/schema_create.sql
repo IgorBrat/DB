@@ -49,9 +49,10 @@ DROP TABLE IF EXISTS `boklach`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `boklach`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `phone` VARCHAR(12) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
+  `phone` VARCHAR(12) NOT NULL UNIQUE,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
   PRIMARY KEY (`id`, `phone`, `email`))
+
 AUTO_INCREMENT = 1;
 
 
@@ -62,7 +63,7 @@ DROP TABLE IF EXISTS `boklach`.`agency` ;
 
 CREATE TABLE IF NOT EXISTS `boklach`.`agency` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `user_id` INT NOT NULL UNIQUE,
   `name` VARCHAR(50) NOT NULL,
   `owner` VARCHAR(50) NOT NULL,
   `city_name` VARCHAR(40) NOT NULL,
@@ -87,7 +88,7 @@ DROP TABLE IF EXISTS `boklach`.`animator` ;
 
 CREATE TABLE IF NOT EXISTS `boklach`.`animator` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `user_id` INT NOT NULL UNIQUE,
   `surname` VARCHAR(50) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
@@ -173,7 +174,7 @@ DROP TABLE IF EXISTS `boklach`.`client` ;
 
 CREATE TABLE IF NOT EXISTS `boklach`.`client` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `user_id` INT NOT NULL UNIQUE,
   `surname` VARCHAR(50) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `birthday` DATE NULL DEFAULT NULL,

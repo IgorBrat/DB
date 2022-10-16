@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Repository
 public class CityDaoImpl implements CityDao {
     private static final String FIND_ALL = "SELECT * FROM city";
     private static final String CREATE = "INSERT city(name, region_name) VALUES (?, ?)";

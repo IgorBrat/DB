@@ -4,12 +4,13 @@ import com.lviv.iot.controller.RegionController;
 import com.lviv.iot.domain.Region;
 import com.lviv.iot.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Controller
 public class RegionControllerImpl implements RegionController {
     @Autowired
     RegionService regionService;

@@ -1,12 +1,7 @@
 package com.lviv.iot.view;
 
-import com.lviv.iot.controller.AgencyController;
-import com.lviv.iot.controller.CityController;
-import com.lviv.iot.controller.RegionController;
-import com.lviv.iot.controller.UserController;
-import com.lviv.iot.domain.City;
-import com.lviv.iot.domain.Region;
-import com.lviv.iot.domain.User;
+import com.lviv.iot.controller.*;
+import com.lviv.iot.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -23,6 +18,10 @@ public class MyView {
     UserController userController;
     @Autowired
     AgencyController agencyController;
+    @Autowired
+    AnimatorController animatorController;
+    @Autowired
+    ClientCardController clientCardController;
 
 
     private final Map<String, String> menu;
@@ -59,6 +58,20 @@ public class MyView {
         menu.put("44", "44 - Find all Agencies");
         menu.put("45", "45 - Find Agency by ID");
 
+        menu.put("5", "5 - Table: ANIMATOR");
+        menu.put("51", "51 - Create Animator");
+        menu.put("52", "52 - Update Animator");
+        menu.put("53", "53 - Delete Animator");
+        menu.put("54", "54 - Find all Animators");
+        menu.put("55", "55 - Find Animator by ID");
+
+        menu.put("6", "6 - Table: CLIENT-CARD");
+        menu.put("61", "61 - Create ClientCard");
+        menu.put("62", "62 - Update ClientCard");
+        menu.put("63", "63 - Delete ClientCard");
+        menu.put("64", "64 - Find all ClientCards");
+        menu.put("65", "65 - Find ClientCard by ID");
+
         menu.put("Q", "  Q - exit");
 
         methodsMenu = new LinkedHashMap<>();
@@ -85,6 +98,18 @@ public class MyView {
         methodsMenu.put("43", this::deleteAgency);
         methodsMenu.put("44", this::findAllAgencies);
         methodsMenu.put("45", this::findAgencyById);
+
+        methodsMenu.put("51", this::createAnimator);
+        methodsMenu.put("52", this::updateAnimator);
+        methodsMenu.put("53", this::deleteAnimator);
+        methodsMenu.put("54", this::findAllAnimators);
+        methodsMenu.put("55", this::findAnimatorById);
+
+        methodsMenu.put("61", this::createClientCard);
+        methodsMenu.put("62", this::updateClientCard);
+        methodsMenu.put("63", this::deleteClientCard);
+        methodsMenu.put("64", this::findAllClientCards);
+        methodsMenu.put("65", this::findClientCardById);
     }
 
     private void selectAllTables() {
@@ -92,6 +117,8 @@ public class MyView {
         findAllCities();
         findAllUsers();
         findAllAgencies();
+        findAllAnimators();
+        findAllClientCards();
     }
 
     // region Region
@@ -275,25 +302,36 @@ public class MyView {
             System.out.println(user.get());
         }
         else {
-            System.out.println("No such user");
+            System.out.println("No such User");
         }
     }
 
     // endregion
 
-    // TODO: 16.10.2022 complete methods in Agency region
-
     // region Agency
 
     private void createAgency() {
+        System.out.println("Input 'user_id': ");
+        Integer userId = Integer.valueOf(input.nextLine());
+        System.out.println("Input 'name': ");
+        String name = input.nextLine();
+        System.out.println("Input 'owner': ");
+        String owner = input.nextLine();
+        System.out.println("Input 'city_name': ");
+        String cityName = input.nextLine();
+        System.out.println("Input 'region_name': ");
+        String regionName = input.nextLine();
+        System.out.println("Input 'hq_address': ");
+        String hqAddress = input.nextLine();
         System.out.println("Input 'phone': ");
         String phone = input.nextLine();
         System.out.println("Input 'email': ");
         String email = input.nextLine();
-        User user = new User(null, phone, email);
+        Agency agency = new Agency(null, userId, name, owner, cityName, regionName,
+                hqAddress, phone, email);
 
         try {
-            userController.create(user);
+            agencyController.create(agency);
             System.out.println("Successfully created");
         }
         catch (DataIntegrityViolationException exception) {
@@ -304,14 +342,27 @@ public class MyView {
     private void updateAgency() {
         System.out.println("Input 'id': ");
         Integer id = Integer.valueOf(input.nextLine());
+        System.out.println("Input new 'user_id': ");
+        Integer userId = Integer.valueOf(input.nextLine());
+        System.out.println("Input new 'name': ");
+        String name = input.nextLine();
+        System.out.println("Input new 'owner': ");
+        String owner = input.nextLine();
+        System.out.println("Input new 'city_name': ");
+        String cityName = input.nextLine();
+        System.out.println("Input new 'region_name': ");
+        String regionName = input.nextLine();
+        System.out.println("Input new 'hq_address': ");
+        String hqAddress = input.nextLine();
         System.out.println("Input new 'phone': ");
         String phone = input.nextLine();
         System.out.println("Input new 'email': ");
         String email = input.nextLine();
-        User user = new User(null, phone, email);
+        Agency agency = new Agency(null, userId, name, owner, cityName, regionName,
+                hqAddress, phone, email);
 
         try {
-            userController.update(id, user);
+            agencyController.update(id, agency);
             System.out.println("Successfully updated");
         }
         catch (DataIntegrityViolationException exception) {
@@ -324,7 +375,7 @@ public class MyView {
         Integer id = Integer.valueOf(input.nextLine());
 
         try {
-            userController.delete(id);
+            agencyController.delete(id);
             System.out.println("Successfully deleted");
         } catch (DataIntegrityViolationException exception) {
             System.out.println("Can`t delete");
@@ -332,22 +383,185 @@ public class MyView {
     }
 
     private void findAllAgencies() {
-        System.out.println("\nTable: USER");
-        List<User> users = userController.findAll();
-        for (User user : users) {
-            System.out.println(user);
+        System.out.println("\nTable: AGENCY");
+        List<Agency> agencies = agencyController.findAll();
+        for (Agency agency : agencies) {
+            System.out.println(agency);
         }
     }
 
     private void findAgencyById() {
         System.out.println("Input 'id': ");
         Integer id = Integer.valueOf(input.nextLine());
-        Optional<User> user = userController.findById(id);
-        if (user.isPresent()) {
-            System.out.println(user.get());
+        Optional<Agency> agency = agencyController.findById(id);
+        if (agency.isPresent()) {
+            System.out.println(agency.get());
         }
         else {
-            System.out.println("No such user");
+            System.out.println("No such Agency");
+        }
+    }
+
+    // endregion
+
+    // region Animator
+
+    private void createAnimator() {
+        System.out.println("Input 'user_id': ");
+        Integer userId = Integer.valueOf(input.nextLine());
+        System.out.println("Input 'surname': ");
+        String surname = input.nextLine();
+        System.out.println("Input 'name': ");
+        String name = input.nextLine();
+        System.out.println("Input 'email': ");
+        String email = input.nextLine();
+        System.out.println("Input 'phone': ");
+        String phone = input.nextLine();
+        System.out.println("Input 'city_name': ");
+        String cityName = input.nextLine();
+        System.out.println("Input 'region_name': ");
+        String regionName = input.nextLine();
+        System.out.println("Input 'salary_per_hour': ");
+        Float salaryPerHour = Float.valueOf(input.nextLine());
+
+        Animator animator = new Animator(null, userId, surname, name, email, phone,
+                cityName, regionName, salaryPerHour);
+
+        try {
+            animatorController.create(animator);
+            System.out.println("Successfully created");
+        }
+        catch (DataIntegrityViolationException exception) {
+            System.out.println("Can`t create");
+        }
+    }
+
+    private void updateAnimator() {
+        System.out.println("Input 'id': ");
+        Integer id = Integer.valueOf(input.nextLine());
+        System.out.println("Input new 'user_id': ");
+        Integer userId = Integer.valueOf(input.nextLine());
+        System.out.println("Input new 'surname': ");
+        String surname = input.nextLine();
+        System.out.println("Input new 'name': ");
+        String name = input.nextLine();
+        System.out.println("Input new 'email': ");
+        String email = input.nextLine();
+        System.out.println("Input new 'phone': ");
+        String phone = input.nextLine();
+        System.out.println("Input new 'city_name': ");
+        String cityName = input.nextLine();
+        System.out.println("Input new 'region_name': ");
+        String regionName = input.nextLine();
+        System.out.println("Input new 'salary_per_hour': ");
+        Float salaryPerHour = Float.valueOf(input.nextLine());
+        Animator animator = new Animator(null, userId, surname, name, email, phone,
+                cityName, regionName, salaryPerHour);
+
+        try {
+            animatorController.update(id, animator);
+            System.out.println("Successfully updated");
+        }
+        catch (DataIntegrityViolationException exception) {
+            System.out.println("Can`t update");
+        }
+    }
+
+    private void deleteAnimator() {
+        System.out.println("Input 'id': ");
+        Integer id = Integer.valueOf(input.nextLine());
+
+        try {
+            animatorController.delete(id);
+            System.out.println("Successfully deleted");
+        } catch (DataIntegrityViolationException exception) {
+            System.out.println("Can`t delete");
+        }
+    }
+
+    private void findAllAnimators() {
+        System.out.println("\nTable: ANIMATOR");
+        List<Animator> animators = animatorController.findAll();
+        for (Animator animator : animators) {
+            System.out.println(animator);
+        }
+    }
+
+    private void findAnimatorById() {
+        System.out.println("Input 'id': ");
+        Integer id = Integer.valueOf(input.nextLine());
+        Optional<Animator> animator = animatorController.findById(id);
+        if (animator.isPresent()) {
+            System.out.println(animator.get());
+        }
+        else {
+            System.out.println("No such Animator");
+        }
+    }
+
+    // endregion
+
+    // region ClientCard
+
+    private void createClientCard() {
+        System.out.println("Input 'name': ");
+        String name = input.nextLine();
+        ClientCard clientCard = new ClientCard(null, name);
+
+        try {
+            clientCardController.create(clientCard);
+            System.out.println("Successfully created");
+        }
+        catch (DataIntegrityViolationException exception) {
+            System.out.println("Can`t create");
+        }
+    }
+
+    private void updateClientCard() {
+        System.out.println("Input 'id': ");
+        Integer id = Integer.valueOf(input.nextLine());
+        System.out.println("Input new 'name': ");
+        String name = input.nextLine();
+        ClientCard clientCard = new ClientCard(null, name);
+
+        try {
+            clientCardController.update(id, clientCard);
+            System.out.println("Successfully updated");
+        }
+        catch (DataIntegrityViolationException exception) {
+            System.out.println("Can`t update");
+        }
+    }
+
+    private void deleteClientCard() {
+        System.out.println("Input 'id': ");
+        Integer id = Integer.valueOf(input.nextLine());
+
+        try {
+            clientCardController.delete(id);
+            System.out.println("Successfully deleted");
+        } catch (DataIntegrityViolationException exception) {
+            System.out.println("Can`t delete");
+        }
+    }
+
+    private void findAllClientCards() {
+        System.out.println("\nTable: CLIENT-CARD");
+        List<ClientCard> clientCards = clientCardController.findAll();
+        for (ClientCard clientCard : clientCards) {
+            System.out.println(clientCard);
+        }
+    }
+
+    private void findClientCardById() {
+        System.out.println("Input 'id': ");
+        Integer id = Integer.valueOf(input.nextLine());
+        Optional<ClientCard> clientCard = clientCardController.findById(id);
+        if (clientCard.isPresent()) {
+            System.out.println(clientCard.get());
+        }
+        else {
+            System.out.println("No such Client Card");
         }
     }
 

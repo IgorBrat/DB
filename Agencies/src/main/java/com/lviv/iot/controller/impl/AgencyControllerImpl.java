@@ -1,16 +1,15 @@
 package com.lviv.iot.controller.impl;
 
 import com.lviv.iot.controller.AgencyController;
-import com.lviv.iot.dao.AgencyDao;
 import com.lviv.iot.domain.Agency;
 import com.lviv.iot.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Controller
 public class AgencyControllerImpl implements AgencyController {
     @Autowired
     private AgencyService agencyService;
