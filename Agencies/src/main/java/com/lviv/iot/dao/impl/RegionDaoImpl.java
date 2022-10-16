@@ -31,14 +31,14 @@ public class RegionDaoImpl implements RegionDao {
 
     @Override
     public Optional<Region> findById(String regionName) {
-        Optional<Region> regions;
+        Optional<Region> region;
         try {
-            regions = Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID,
+            region = Optional.ofNullable(jdbcTemplate.queryForObject(FIND_BY_ID,
                     BeanPropertyRowMapper.newInstance(Region.class), regionName));
         } catch (EmptyResultDataAccessException e) {
-            regions = Optional.empty();
+            region = Optional.empty();
         }
-        return regions;
+        return region;
     }
 
     @Override
