@@ -1,7 +1,7 @@
 package com.lviv.iot.view.custom;
 
-import com.lviv.iot.controller.EventController;
-import com.lviv.iot.domain.Event;
+import com.lviv.iot.controller.EquipmentController;
+import com.lviv.iot.domain.Equipment;
 import com.lviv.iot.view.GeneralView;
 import com.lviv.iot.view.Printable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +11,28 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class EventView implements GeneralView {
+public class EquipmentView implements GeneralView {
     @Autowired
-    EventController eventController;
+    EquipmentController equipmentController;
     private final Map<String, String> menu;
     private final Map<String, Printable> methodsMenu;
     private final Scanner input = new Scanner(System.in);
 
-    public EventView() {
+    public EquipmentView() {
         menu = new LinkedHashMap<>();
-        menu.put("7", "7 - Table: EVENT");
-        menu.put("71", "71 - Create Event");
-        menu.put("72", "72 - Update Event");
-        menu.put("73", "73 - Delete Event");
-        menu.put("74", "74 - Find all Events");
-        menu.put("75", "75 - Find Event by ID");
+        menu.put("9", "9 - Table: EQUIPMENT");
+        menu.put("91", "91 - Create Equipment");
+        menu.put("92", "92 - Update Equipment");
+        menu.put("93", "93 - Delete Equipment");
+        menu.put("94", "94 - Find all Equipment");
+        menu.put("95", "95 - Find Equipment by ID");
 
         methodsMenu = new LinkedHashMap<>();
-        methodsMenu.put("71", this::create);
-        methodsMenu.put("72", this::update);
-        methodsMenu.put("73", this::delete);
-        methodsMenu.put("74", this::findAll);
-        methodsMenu.put("75", this::findById);
+        methodsMenu.put("91", this::create);
+        methodsMenu.put("92", this::update);
+        methodsMenu.put("93", this::delete);
+        methodsMenu.put("94", this::findAll);
+        methodsMenu.put("95", this::findById);
     }
 
     public Map<String, String> getMenu() {
@@ -46,10 +46,10 @@ public class EventView implements GeneralView {
     private void create() {
         System.out.println("Input 'name': ");
         String name = input.nextLine();
-        Event event = new Event(null, name);
+        Equipment equipment = new Equipment(null, name);
 
         try {
-            eventController.create(event);
+            equipmentController.create(equipment);
             System.out.println("Successfully created");
         }
         catch (DataIntegrityViolationException exception) {
@@ -62,10 +62,10 @@ public class EventView implements GeneralView {
         Integer id = Integer.valueOf(input.nextLine());
         System.out.println("Input new 'name': ");
         String name = input.nextLine();
-        Event event = new Event(null, name);
+        Equipment equipment = new Equipment(null, name);
 
         try {
-            eventController.update(id, event);
+            equipmentController.update(id, equipment);
             System.out.println("Successfully updated");
         }
         catch (DataIntegrityViolationException exception) {
@@ -78,7 +78,7 @@ public class EventView implements GeneralView {
         Integer id = Integer.valueOf(input.nextLine());
 
         try {
-            eventController.delete(id);
+            equipmentController.delete(id);
             System.out.println("Successfully deleted");
         } catch (DataIntegrityViolationException exception) {
             System.out.println("Can`t delete");
@@ -86,22 +86,22 @@ public class EventView implements GeneralView {
     }
 
     public void findAll() {
-        System.out.println("\nTable: EVENT");
-        List<Event> events = eventController.findAll();
-        for (Event event : events) {
-            System.out.println(event);
+        System.out.println("\nTable: EQUIPMENT");
+        List<Equipment> equipments = equipmentController.findAll();
+        for (Equipment equipment : equipments) {
+            System.out.println(equipment);
         }
     }
 
     private void findById() {
         System.out.println("Input 'id': ");
         Integer id = Integer.valueOf(input.nextLine());
-        Optional<Event> event = eventController.findById(id);
-        if (event.isPresent()) {
-            System.out.println(event.get());
+        Optional<Equipment> equipment = equipmentController.findById(id);
+        if (equipment.isPresent()) {
+            System.out.println(equipment.get());
         }
         else {
-            System.out.println("No such Event");
+            System.out.println("No such Equipment");
         }
     }
 }

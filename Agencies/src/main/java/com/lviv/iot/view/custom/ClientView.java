@@ -1,7 +1,7 @@
 package com.lviv.iot.view.custom;
 
-import com.lviv.iot.controller.AnimatorController;
-import com.lviv.iot.domain.Animator;
+import com.lviv.iot.controller.ClientController;
+import com.lviv.iot.domain.Client;
 import com.lviv.iot.view.GeneralView;
 import com.lviv.iot.view.Printable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +11,28 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class AnimatorView implements GeneralView {
+public class ClientView implements GeneralView {
     @Autowired
-    AnimatorController animatorController;
+    ClientController clientController;
     private final Map<String, String> menu;
     private final Map<String, Printable> methodsMenu;
     private final Scanner input = new Scanner(System.in);
 
-    public AnimatorView() {
+    public ClientView() {
         menu = new LinkedHashMap<>();
-        menu.put("5", "5 - Table: ANIMATOR");
-        menu.put("51", "51 - Create Animator");
-        menu.put("52", "52 - Update Animator");
-        menu.put("53", "53 - Delete Animator");
-        menu.put("54", "54 - Find all Animators");
-        menu.put("55", "55 - Find Animator by ID");
+        menu.put("8", "8 - Table: CLIENT");
+        menu.put("81", "81 - Create Client");
+        menu.put("82", "82 - Update Client");
+        menu.put("83", "83 - Delete Client");
+        menu.put("84", "84 - Find all Clients");
+        menu.put("85", "85 - Find Client by ID");
 
         methodsMenu = new LinkedHashMap<>();
-        methodsMenu.put("51", this::create);
-        methodsMenu.put("52", this::update);
-        methodsMenu.put("53", this::delete);
-        methodsMenu.put("54", this::findAll);
-        methodsMenu.put("55", this::findById);
+        methodsMenu.put("81", this::create);
+        methodsMenu.put("82", this::update);
+        methodsMenu.put("83", this::delete);
+        methodsMenu.put("84", this::findAll);
+        methodsMenu.put("85", this::findById);
     }
 
     public Map<String, String> getMenu() {
@@ -50,18 +50,27 @@ public class AnimatorView implements GeneralView {
         String surname = input.nextLine();
         System.out.println("Input 'name': ");
         String name = input.nextLine();
+        System.out.println("Input 'birthday', format Y-M-D (0 - null): ");
+        String birthday = input.nextLine();
+        if (birthday.equals("0")) {
+            birthday = null;
+        }
         System.out.println("Input 'city_name': ");
         String cityName = input.nextLine();
         System.out.println("Input 'region_name': ");
         String regionName = input.nextLine();
-        System.out.println("Input 'salary_per_hour': ");
-        Float salaryPerHour = Float.valueOf(input.nextLine());
-
-        Animator animator = new Animator(null, userId, surname, name,
-                cityName, regionName, salaryPerHour);
+        System.out.println("Input 'street_address': ");
+        String streetAddress = input.nextLine();
+        System.out.println("Input 'client_card_id'(0 - null): ");
+        Integer clientCardId = Integer.valueOf(input.nextLine());
+        if (clientCardId == 0) {
+            clientCardId = null;
+        }
+        Client client = new Client(null, userId, surname, name, birthday,
+                cityName, regionName, streetAddress, clientCardId);
 
         try {
-            animatorController.create(animator);
+            clientController.create(client);
             System.out.println("Successfully created");
         }
         catch (DataIntegrityViolationException exception) {
@@ -78,17 +87,27 @@ public class AnimatorView implements GeneralView {
         String surname = input.nextLine();
         System.out.println("Input new 'name': ");
         String name = input.nextLine();
+        System.out.println("Input new 'birthday', format Y-M-D (0 - null): ");
+        String birthday = input.nextLine();
+        if (birthday.equals("0")) {
+            birthday = null;
+        }
         System.out.println("Input new 'city_name': ");
         String cityName = input.nextLine();
         System.out.println("Input new 'region_name': ");
         String regionName = input.nextLine();
-        System.out.println("Input new 'salary_per_hour': ");
-        Float salaryPerHour = Float.valueOf(input.nextLine());
-        Animator animator = new Animator(null, userId, surname, name,
-                cityName, regionName, salaryPerHour);
+        System.out.println("Input new 'street_address': ");
+        String streetAddress = input.nextLine();
+        System.out.println("Input new 'client_card_id'(0 - null): ");
+        Integer clientCardId = Integer.valueOf(input.nextLine());
+        if (clientCardId == 0) {
+            clientCardId = null;
+        }
+        Client client = new Client(null, userId, surname, name, birthday,
+                cityName, regionName, streetAddress, clientCardId);
 
         try {
-            animatorController.update(id, animator);
+            clientController.update(id, client);
             System.out.println("Successfully updated");
         }
         catch (DataIntegrityViolationException exception) {
@@ -101,7 +120,7 @@ public class AnimatorView implements GeneralView {
         Integer id = Integer.valueOf(input.nextLine());
 
         try {
-            animatorController.delete(id);
+            clientController.delete(id);
             System.out.println("Successfully deleted");
         } catch (DataIntegrityViolationException exception) {
             System.out.println("Can`t delete");
@@ -109,22 +128,22 @@ public class AnimatorView implements GeneralView {
     }
 
     public void findAll() {
-        System.out.println("\nTable: ANIMATOR");
-        List<Animator> animators = animatorController.findAll();
-        for (Animator animator : animators) {
-            System.out.println(animator);
+        System.out.println("\nTable: CLIENT");
+        List<Client> clients = clientController.findAll();
+        for (Client client : clients) {
+            System.out.println(client);
         }
     }
 
     private void findById() {
         System.out.println("Input 'id': ");
         Integer id = Integer.valueOf(input.nextLine());
-        Optional<Animator> animator = animatorController.findById(id);
-        if (animator.isPresent()) {
-            System.out.println(animator.get());
+        Optional<Client> client = clientController.findById(id);
+        if (client.isPresent()) {
+            System.out.println(client.get());
         }
         else {
-            System.out.println("No such Animator");
+            System.out.println("No such Client");
         }
     }
 }

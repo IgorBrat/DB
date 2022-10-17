@@ -15,6 +15,4 @@ public class Agency {
     private String cityName;
     private String regionName;
     private String hqAddress;
-    private String phone;
-    private String email;
 }

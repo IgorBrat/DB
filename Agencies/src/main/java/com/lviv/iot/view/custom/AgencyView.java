@@ -56,12 +56,7 @@ public class AgencyView implements GeneralView {
         String regionName = input.nextLine();
         System.out.println("Input 'hq_address': ");
         String hqAddress = input.nextLine();
-        System.out.println("Input 'phone': ");
-        String phone = input.nextLine();
-        System.out.println("Input 'email': ");
-        String email = input.nextLine();
-        Agency agency = new Agency(null, userId, name, owner, cityName, regionName,
-                hqAddress, phone, email);
+        Agency agency = new Agency(null, userId, name, owner, cityName, regionName, hqAddress);
 
         try {
             agencyController.create(agency);
@@ -87,12 +82,7 @@ public class AgencyView implements GeneralView {
         String regionName = input.nextLine();
         System.out.println("Input new 'hq_address': ");
         String hqAddress = input.nextLine();
-        System.out.println("Input new 'phone': ");
-        String phone = input.nextLine();
-        System.out.println("Input new 'email': ");
-        String email = input.nextLine();
-        Agency agency = new Agency(null, userId, name, owner, cityName, regionName,
-                hqAddress, phone, email);
+        Agency agency = new Agency(null, userId, name, owner, cityName, regionName, hqAddress);
 
         try {
             agencyController.update(id, agency);

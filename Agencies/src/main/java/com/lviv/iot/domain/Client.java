@@ -13,8 +13,6 @@ public class Client {
     private String surname;
     private String name;
     private String birthday;
-    private String phone;
-    private String email;
     private String cityName;
     private String regionName;
     private String streetAddress;

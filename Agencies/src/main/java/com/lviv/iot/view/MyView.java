@@ -1,10 +1,6 @@
 package com.lviv.iot.view;
 
-import com.lviv.iot.controller.*;
-import com.lviv.iot.domain.*;
 import com.lviv.iot.view.custom.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -18,7 +14,7 @@ public class MyView {
 
     public MyView(RegionView regionView, CityView cityView, UserView userView,
                   AgencyView agencyView, AnimatorView animatorView, ClientCardView clientCardView,
-                  EventView eventView) {
+                  EventView eventView, ClientView clientView, EquipmentView equipmentView, OrderView orderView) {
         viewsList = new ArrayList<>();
         viewsList.add(regionView);
         viewsList.add(cityView);
@@ -27,6 +23,9 @@ public class MyView {
         viewsList.add(animatorView);
         viewsList.add(clientCardView);
         viewsList.add(eventView);
+        viewsList.add(clientView);
+        viewsList.add(equipmentView);
+        viewsList.add(orderView);
 
         menu = new LinkedHashMap<>();
         menu.put("A", "A - Select all tables");
@@ -49,6 +48,7 @@ public class MyView {
     }
 
     // region Output
+
     private void outputMenu() {
         System.out.println("\nMENU:");
         for (String key : menu.keySet())
@@ -57,8 +57,14 @@ public class MyView {
 
     private void outputSubMenu(String fig) {
         System.out.println("\nSubMENU:");
-        for (String key : menu.keySet())
-            if (key.length() != 1 && key.substring(0, 1).equals(fig)) System.out.println(menu.get(key));
+        for (String key : menu.keySet()) {
+            if (key.length() == 2 && key.substring(0, 1).equals(fig)) {
+                System.out.println(menu.get(key));
+            }
+            else if (key.length() == 3 && fig.equals("0")) {
+                System.out.println(menu.get(key));
+            }
+        }
     }
 
     public void show() {
@@ -81,5 +87,6 @@ public class MyView {
             }
         } while (!keyMenu.equals("Q"));
     }
+
     // endregion
 }

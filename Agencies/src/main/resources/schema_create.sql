@@ -69,15 +69,13 @@ CREATE TABLE IF NOT EXISTS `boklach`.`agency` (
   `city_name` VARCHAR(40) NOT NULL,
   `region_name` VARCHAR(50) NOT NULL,
   `hq_address` VARCHAR(50) NOT NULL,
-  `phone` VARCHAR(12) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `agency_city_region`
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
   CONSTRAINT `agency_user`
-    FOREIGN KEY (`user_id` , `phone` , `email`)
-    REFERENCES `boklach`.`user` (`id` , `phone` , `email`))
+    FOREIGN KEY (`user_id`)
+    REFERENCES `boklach`.`user` (`id`))
 AUTO_INCREMENT = 1;
 
 
@@ -91,8 +89,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`animator` (
   `user_id` INT NOT NULL UNIQUE,
   `surname` VARCHAR(50) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `phone` VARCHAR(12) NOT NULL,
   `city_name` VARCHAR(40) NOT NULL,
   `region_name` VARCHAR(50) NOT NULL,
   `salary_per_hour` DECIMAL(7,2) NOT NULL,
@@ -101,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `boklach`.`animator` (
     FOREIGN KEY (`city_name` , `region_name`)
     REFERENCES `boklach`.`city` (`name` , `region_name`),
   CONSTRAINT `animator_user`
-    FOREIGN KEY (`user_id` , `phone` , `email`)
-    REFERENCES `boklach`.`user` (`id` , `phone` , `email`))
+    FOREIGN KEY (`user_id`)
+    REFERENCES `boklach`.`user` (`id`))
 AUTO_INCREMENT = 1;
 
 
@@ -178,8 +174,6 @@ CREATE TABLE IF NOT EXISTS `boklach`.`client` (
   `surname` VARCHAR(50) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `birthday` DATE NULL DEFAULT NULL,
-  `phone` VARCHAR(12) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
   `city_name` VARCHAR(40) NOT NULL,
   `region_name` VARCHAR(50) NOT NULL,
   `street_address` VARCHAR(50) NULL DEFAULT NULL,
@@ -192,8 +186,8 @@ CREATE TABLE IF NOT EXISTS `boklach`.`client` (
     FOREIGN KEY (`client_card_id`)
     REFERENCES `boklach`.`client_card` (`id`),
   CONSTRAINT `client_user`
-    FOREIGN KEY (`user_id` , `phone` , `email`)
-    REFERENCES `boklach`.`user` (`id` , `phone` , `email`))
+    FOREIGN KEY (`user_id`)
+    REFERENCES `boklach`.`user` (`id`))
 AUTO_INCREMENT = 1;
 
 
@@ -339,49 +333,49 @@ INSERT INTO user (phone, email) VALUES ('0555060080', 'ivalo@mail.ua');
 -- -----------------------------------------------------
 -- Table `boklach`.`agency`
 -- -----------------------------------------------------
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (11, 'LDB', 'Ivanov I.I.', 'Kyiv','Kyivska', 'Holovna str. 3', '0971231231', 'ldb@ukr.net');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (12, 'HKeeper', 'Petrov P.P.', 'Poltava','Poltavska', 'Hreniv str. 4', '0955555555', 'hkeeper@ukr.net');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (13, 'NoNameFun', 'Ivanov I.I.', 'Odesa','Odeska', 'Somiv str. 10', '0968759090', 'nonamef@mail.com');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (14, 'NEP', 'Petrov P.P.', 'Chernivtsi', 'Vinnitska', 'Somiv str. 100', '0958759090', 'nepfirm@mail.com');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (15, 'GetFun', 'Ivanov I.I.', 'Chernivtsi','Chernivetska', 'Komarova str. 30', '0959009090', 'get_fun@gmail.com');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (16, 'GH', 'Petrov P.P.', 'Kharkiv','Kharkivska', 'Holovna str. 200', '0666677777', 'ghmail@mail.ua');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (17, 'BPH', 'Petrov O.O.', 'Ternopil','Ternopilska', 'Nesalezhnosti blrd. 12', '0505000550', 'bphfirm@urk.net');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (18, 'Wedd', 'Olegov O.O.', 'Lutsk','Volynska', 'Sone str. 40', '0669669999', 'wedd@gmail.com');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (19, 'Funnier', 'Petrov O.O.', 'Chernivtsi','Chernivetska', 'Shevchenka str. 55', '0991231231', 'funnier@mail.ua');
-INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address, phone, email) 
-	VALUES (20, 'Enterly', 'Ivanov I.I.', 'Lviv','Lvivska', 'Great blrd. 1', '0506070123', 'entertly@gmail.com');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (11, 'LDB', 'Ivanov I.I.', 'Kyiv','Kyivska', 'Holovna str. 3');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (12, 'HKeeper', 'Petrov P.P.', 'Poltava','Poltavska', 'Hreniv str. 4');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (13, 'NoNameFun', 'Ivanov I.I.', 'Odesa','Odeska', 'Somiv str. 10');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (14, 'NEP', 'Petrov P.P.', 'Chernivtsi', 'Vinnitska', 'Somiv str. 100');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (15, 'GetFun', 'Ivanov I.I.', 'Chernivtsi','Chernivetska', 'Komarova str. 30');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (16, 'GH', 'Petrov P.P.', 'Kharkiv','Kharkivska', 'Holovna str. 200');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (17, 'BPH', 'Petrov O.O.', 'Ternopil','Ternopilska', 'Nesalezhnosti blrd. 12');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (18, 'Wedd', 'Olegov O.O.', 'Lutsk','Volynska', 'Sone str. 40');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (19, 'Funnier', 'Petrov O.O.', 'Chernivtsi','Chernivetska', 'Shevchenka str. 55');
+INSERT INTO agency (user_id, name, owner, city_name, region_name, hq_address) 
+	VALUES (20, 'Enterly', 'Ivanov I.I.', 'Lviv','Lvivska', 'Great blrd. 1');
 -- -----------------------------------------------------
 -- Table `boklach`.`animator`
 -- -----------------------------------------------------
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (1, 'Zoryan', 'Ivan', 'Chernivtsi','Vinnitska', 800, 'zoryaver@mail.ua', '0504545455');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (2, 'Zakharov', 'Zenovii', 'Poltava','Poltavska', 900, 'zenykbo@ukr.net', '0667857111');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (3, 'Karlo', 'Oleg', 'Ternopil','Ternopilska', 1100, 'olechkar@ukr.net', '0505006060');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (4, 'Perta', 'Pinya', 'Odesa','Odeska', 700, 'ppother@gmail.com', '0345006060');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (5, 'Perta', 'Pedro', 'Lviv','Lvivska', 600, 'pp@gmail.com', '0341000111');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (6, 'Pepper', 'Petro', 'Kharkiv','Kharkivska', 650, 'pepppr@gmail.com', '0667777474');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (7, 'Mal', 'John', 'Vinnitsya','Vinnitska', 1000, 'jm@mail.ua', '0953003003');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (8, 'Mal', 'Jack', 'Kyiv','Kyivska', 800, 'jackym@gmail.com', '0561100011');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (9, 'Semkiv', 'Semen', 'Lutsk','Volynska', 900, 'petya@ukr.net', '0507676767');
-INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour, email, phone) 
-	VALUES (10, 'Chiv', 'Taras', 'Chernivtsi','Chernivetska', 750, 'mchivan@gmail.com', '0955004132');
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (1, 'Zoryan', 'Ivan', 'Chernivtsi','Vinnitska', 800);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (2, 'Zakharov', 'Zenovii', 'Poltava','Poltavska', 900);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (3, 'Karlo', 'Oleg', 'Ternopil','Ternopilska', 1100);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (4, 'Perta', 'Pinya', 'Odesa','Odeska', 700);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (5, 'Perta', 'Pedro', 'Lviv','Lvivska', 600);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (6, 'Pepper', 'Petro', 'Kharkiv','Kharkivska', 650);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (7, 'Mal', 'John', 'Vinnitsya','Vinnitska', 1000);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (8, 'Mal', 'Jack', 'Kyiv','Kyivska', 800);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (9, 'Semkiv', 'Semen', 'Lutsk','Volynska', 900);
+INSERT INTO animator (user_id, surname, name, city_name, region_name, salary_per_hour) 
+	VALUES (10, 'Chiv', 'Taras', 'Chernivtsi','Chernivetska', 750);
 -- -----------------------------------------------------
 -- Table `boklach`.`agency_animator`
 -- -----------------------------------------------------
@@ -449,26 +443,26 @@ INSERT INTO card_event_discount (client_card_id, event_id, discount_percentage) 
 -- -----------------------------------------------------
 -- Table `boklach`.`client`
 -- -----------------------------------------------------
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (21, 'Bochko', 'Felicia', '1995-09-01', '0561010100', 'felibocj@ukr.net', 'Kyiv','Kyivska', 'Holovna str. 1', 1);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (22, 'Barinov', 'Oleksii', '1995-06-06', '0669130300', 'barkov1998@mail.ua', 'Vinnitsya','Vinnitska', 'Chernivetska str. 5', 5);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (23, 'Beryl', 'Bogdan', '1975-09-01', '0991111111', 'bogberyl@gmail.com', 'Kharkiv','Kharkivska', 'Lvivska str. 10', NULL);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id)
-	VALUES (24, 'Saman', 'Taras', '1970-01-05', '0909595958', 'samtari@ukr.net', 'Lutsk','Volynska', 'Nesalezhnosti blvd. 100', 3);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (25, 'Simov', 'Semen', '1990-03-10', '0500005050', 'simsem@urk.net', 'Chernivtsi','Chernivetska', 'Nesalezhnosti blvd. 11', NULL);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (26, 'Gryniv', 'Marta', '1995-09-10', '0669009090', 'martgr@mail.ua', 'Lviv','Lvivska', 'Semka str. 15', 4);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (27, 'Gavra', 'Petro', NULL, '0995050500', 'gavrylko@ukr.net', 'Ternopil','Ternopilska', 'Sorov str. 20', 2);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (28, 'Avera', 'Ivan', '1960-09-09', '0506006060', 'some@gmail.com', 'Odesa','Odeska', 'Ukrainska str. 200', 1);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (29, 'Avera', 'Maria', NULL, '0567007090', 'avmaria@mail.ua', 'Kharkiv','Kharkivska', 'Sorov str. 13', 3);
-INSERT INTO client (user_id, surname, name, birthday, phone, email, city_name, region_name, street_address, client_card_id) 
-	VALUES (30, 'Losa', 'Ivan', '2000-07-05', '0555060080', 'ivalo@mail.ua', 'Chernivtsi','Vinnitska', 'Holovna str. 50', NULL);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (21, 'Bochko', 'Felicia', '1995-09-01', 'Kyiv','Kyivska', 'Holovna str. 1', 1);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (22, 'Barinov', 'Oleksii', '1995-06-06', 'Vinnitsya','Vinnitska', 'Chernivetska str. 5', 5);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (23, 'Beryl', 'Bogdan', '1975-09-01', 'Kharkiv','Kharkivska', 'Lvivska str. 10', NULL);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id)
+	VALUES (24, 'Saman', 'Taras', '1970-01-05', 'Lutsk','Volynska', 'Nesalezhnosti blvd. 100', 3);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (25, 'Simov', 'Semen', '1990-03-10', 'Chernivtsi','Chernivetska', 'Nesalezhnosti blvd. 11', NULL);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (26, 'Gryniv', 'Marta', '1995-09-10', 'Lviv','Lvivska', 'Semka str. 15', 4);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (27, 'Gavra', 'Petro', NULL, 'Ternopil','Ternopilska', 'Sorov str. 20', 2);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (28, 'Avera', 'Ivan', '1960-09-09', 'Odesa','Odeska', 'Ukrainska str. 200', 1);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (29, 'Avera', 'Maria', NULL, 'Kharkiv','Kharkivska', 'Sorov str. 13', 3);
+INSERT INTO client (user_id, surname, name, birthday, city_name, region_name, street_address, client_card_id) 
+	VALUES (30, 'Losa', 'Ivan', '2000-07-05', 'Chernivtsi','Vinnitska', 'Holovna str. 50', NULL);
 -- -----------------------------------------------------
 -- Table `boklach`.`equipment`
 -- -----------------------------------------------------
