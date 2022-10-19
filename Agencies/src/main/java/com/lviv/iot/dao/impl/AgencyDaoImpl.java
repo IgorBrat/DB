@@ -2,13 +2,11 @@ package com.lviv.iot.dao.impl;
 
 import com.lviv.iot.dao.AgencyDao;
 import com.lviv.iot.domain.Agency;
-import com.lviv.iot.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +20,11 @@ public class AgencyDaoImpl implements AgencyDao {
             "region_name=?,hq_address=? WHERE id=?";
     private static final String DELETE = "DELETE FROM agency WHERE id=?";
     private static final String FIND_BY_ID = "SELECT * FROM agency WHERE id=?";
+
+    private static final String FIND_ANIMATORS_IN_AGENCIES = "SELECT agency.name as agency_name, animator.surname, animator.name FROM animator\n" +
+            "JOIN agency_animator ON animator_id = animator.id" +
+            "JOIN agency ON agency.id = agency_id" +
+            "ORDER BY agency_id, surname, name";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

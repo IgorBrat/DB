@@ -1,9 +1,11 @@
-# DB lab3 IoT 2022
+# DB lab4 IoT 2022
 
 ## Task:
 
-Write sql script to drop and re-create db with 'insert' statements.
+Using SpringJdbcTemplate, write a console application to work with db from labs 1, 3.
 
-Check 3-rd normal form.
-
-Add 2 additional indexes (added to tables 'agency' (name), 'animator' and 'client' (surname)).
+Required methods:
+- get data from table;
+- insert data;
+- delete data;
+- update data.

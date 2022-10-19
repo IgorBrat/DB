@@ -10,7 +10,7 @@ WHERE salary_per_hour IN (SELECT MAX(salary_per_hour) FROM animator);
 
 -- Task 2: Get animators by agencies
 
-SELECT agency.name as agency_name, animator.surname, animator.name, animator.email FROM animator
+SELECT agency.name as agency_name, animator.surname, animator.name FROM animator
 JOIN agency_animator ON animator_id = animator.id
 JOIN agency ON agency.id = agency_id
 ORDER BY agency_id, surname, name;
