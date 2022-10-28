@@ -1,6 +1,6 @@
-package com.lviv.iot.controller.impl;
+package com.lviv.iot.controller;
 
-import com.lviv.iot.controller.OrderController;
+import com.lviv.iot.controller.GeneralController;
 import com.lviv.iot.domain.Order;
 import com.lviv.iot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class OrderControllerImpl implements OrderController {
+public class OrderControllerImpl implements GeneralController<Order, Integer> {
     @Autowired
     OrderService orderService;
 

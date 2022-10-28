@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.repository.AgencyDao;
+import com.lviv.iot.repository.AgencyRepository;
 import com.lviv.iot.domain.Agency;
 import com.lviv.iot.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,30 +12,30 @@ import java.util.Optional;
 @Service
 public class AgencyServiceImpl implements AgencyService {
     @Autowired
-    private AgencyDao agencyDao;
+    private AgencyRepository agencyRepository;
 
     @Override
     public List<Agency> findAll() {
-        return agencyDao.findAll();
+        return agencyRepository.findAll();
     }
 
     @Override
     public Optional<Agency> findById(Integer id) {
-        return agencyDao.findById(id);
+        return agencyRepository.findById(id);
     }
 
     @Override
     public int create(Agency agency) {
-        return agencyDao.create(agency);
+        return agencyRepository.create(agency);
     }
 
     @Override
     public int update(Integer id, Agency agency) {
-        return agencyDao.update(id, agency);
+        return agencyRepository.update(id, agency);
     }
 
     @Override
     public int delete(Integer id) {
-        return agencyDao.delete(id);
+        return agencyRepository.delete(id);
     }
 }

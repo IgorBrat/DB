@@ -1,6 +1,6 @@
-package com.lviv.iot.controller.impl;
+package com.lviv.iot.controller;
 
-import com.lviv.iot.controller.ClientController;
+import com.lviv.iot.controller.GeneralController;
 import com.lviv.iot.domain.Client;
 import com.lviv.iot.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class ClientControllerImpl implements ClientController {
+public class ClientControllerImpl implements GeneralController<Client, Integer> {
     @Autowired
     ClientService clientService;
 

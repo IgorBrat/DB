@@ -1,17 +1,16 @@
-package com.lviv.iot.controller.impl;
+package com.lviv.iot.controller;
 
-import com.lviv.iot.controller.UserController;
+import com.lviv.iot.controller.GeneralController;
 import com.lviv.iot.domain.User;
 import com.lviv.iot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class UserControllerImpl implements UserController {
+public class UserControllerImpl implements GeneralController<User, Integer> {
     @Autowired
     private UserService userService;
     @Override

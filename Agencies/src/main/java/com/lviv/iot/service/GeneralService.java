@@ -1,12 +1,11 @@
 package com.lviv.iot.service;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GeneralService<T, ID> {
     List<T> findAll();
-    Optional<T> findById(ID id);
-    int create(T entity);
-    int update(ID id, T entity);
-    int delete(ID id);
+    T findById(ID id);
+    T create(T entity);
+    void update(ID id, T entity);
+    void delete(ID id);
 }

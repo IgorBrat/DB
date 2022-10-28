@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.repository.AnimatorDao;
+import com.lviv.iot.repository.AnimatorRepository;
 import com.lviv.iot.domain.Animator;
 import com.lviv.iot.service.AnimatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,30 +12,30 @@ import java.util.Optional;
 @Service
 public class AnimatorServiceImpl implements AnimatorService {
     @Autowired
-    AnimatorDao animatorDao;
+    AnimatorRepository animatorRepository;
 
     @Override
     public List<Animator> findAll() {
-        return animatorDao.findAll();
+        return animatorRepository.findAll();
     }
 
     @Override
     public Optional<Animator> findById(Integer id) {
-        return animatorDao.findById(id);
+        return animatorRepository.findById(id);
     }
 
     @Override
     public int create(Animator animator) {
-        return animatorDao.create(animator);
+        return animatorRepository.create(animator);
     }
 
     @Override
     public int update(Integer id, Animator animator) {
-        return animatorDao.update(id, animator);
+        return animatorRepository.update(id, animator);
     }
 
     @Override
     public int delete(Integer id) {
-        return animatorDao.delete(id);
+        return animatorRepository.delete(id);
     }
 }

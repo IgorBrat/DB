@@ -1,9 +1,9 @@
 package com.lviv.iot.repository;
 
-import com.lviv.iot.domain.Client;
+import com.lviv.iot.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientDao extends JpaRepository<Client, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 }

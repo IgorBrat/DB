@@ -1,6 +1,6 @@
-package com.lviv.iot.controller.impl;
+package com.lviv.iot.controller;
 
-import com.lviv.iot.controller.AgencyController;
+import com.lviv.iot.controller.GeneralController;
 import com.lviv.iot.domain.Agency;
 import com.lviv.iot.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class AgencyControllerImpl implements AgencyController {
+public class AgencyControllerImpl implements GeneralController<Agency, Integer> {
     @Autowired
     private AgencyService agencyService;
 

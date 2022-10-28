@@ -1,6 +1,6 @@
-package com.lviv.iot.controller.impl;
+package com.lviv.iot.controller;
 
-import com.lviv.iot.controller.EventController;
+import com.lviv.iot.controller.GeneralController;
 import com.lviv.iot.domain.Event;
 import com.lviv.iot.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class EventControllerImpl implements EventController {
+public class EventControllerImpl implements GeneralController<Event, Integer> {
     @Autowired
     EventService eventService;
 

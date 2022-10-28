@@ -1,17 +1,16 @@
-package com.lviv.iot.controller.impl;
+package com.lviv.iot.controller;
 
-import com.lviv.iot.controller.AnimatorController;
+import com.lviv.iot.controller.GeneralController;
 import com.lviv.iot.domain.Animator;
 import com.lviv.iot.service.AnimatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class AnimatorControllerImpl implements AnimatorController {
+public class AnimatorControllerImpl implements GeneralController<Animator, Integer> {
     @Autowired
     AnimatorService animatorService;
 

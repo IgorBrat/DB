@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.repository.RegionDao;
+import com.lviv.iot.repository.RegionRepository;
 import com.lviv.iot.domain.Region;
 import com.lviv.iot.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,30 +12,37 @@ import java.util.Optional;
 @Service
 public class RegionServiceImpl implements RegionService {
     @Autowired
-    private RegionDao regionDao;
+    private RegionRepository regionRepository;
 
     @Override
     public List<Region> findAll() {
-        return regionDao.findAll();
+        return regionRepository.findAll();
     }
 
     @Override
-    public Optional<Region> findById(String regionName) {
-        return regionDao.findById(regionName);
+    public Region findById(String regionName) {
+        return regionRepository.findById(regionName)
+                .orElseThrow();
     }
 
     @Override
-    public int create(Region region) {
-        return regionDao.create(region);
+    public Region create(Region region) {
+        return regionRepository.save(region);
+    }
+
+    // I don`t think it will work as region_name is its` own id
+    @Override
+    public void update(String regionName, Region newRegion) {
+        Region region = regionRepository.findById(regionName)
+                .orElseThrow();
+        region.setName(regionName);
+        regionRepository.save(region);
     }
 
     @Override
-    public int update(String regionName, Region region) {
-        return regionDao.update(regionName, region);
-    }
-
-    @Override
-    public int delete(String regionName) {
-        return regionDao.delete(regionName);
+    public void delete(String regionName) {
+        Region region = regionRepository.findById(regionName)
+                .orElseThrow();
+        regionRepository.delete(region);
     }
 }
