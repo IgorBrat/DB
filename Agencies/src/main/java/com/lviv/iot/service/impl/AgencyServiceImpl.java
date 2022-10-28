@@ -1,9 +1,7 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.AgencyDao;
-import com.lviv.iot.dao.UserDao;
+import com.lviv.iot.repository.AgencyDao;
 import com.lviv.iot.domain.Agency;
-import com.lviv.iot.domain.User;
 import com.lviv.iot.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

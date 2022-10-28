@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.RegionDao;
+import com.lviv.iot.repository.RegionDao;
 import com.lviv.iot.domain.Region;
 import com.lviv.iot.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;

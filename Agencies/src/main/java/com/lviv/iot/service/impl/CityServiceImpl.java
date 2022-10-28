@@ -1,13 +1,12 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.CityDao;
+import com.lviv.iot.repository.CityDao;
 import com.lviv.iot.domain.City;
 import com.lviv.iot.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CityServiceImpl implements CityService {

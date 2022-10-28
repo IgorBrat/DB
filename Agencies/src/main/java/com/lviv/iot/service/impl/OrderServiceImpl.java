@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.OrderDao;
+import com.lviv.iot.repository.OrderDao;
 import com.lviv.iot.domain.Order;
 import com.lviv.iot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

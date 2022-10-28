@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.EventDao;
+import com.lviv.iot.repository.EventDao;
 import com.lviv.iot.domain.Event;
 import com.lviv.iot.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;

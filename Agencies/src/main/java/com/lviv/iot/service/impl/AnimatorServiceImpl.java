@@ -1,6 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.AnimatorDao;
+import com.lviv.iot.repository.AnimatorDao;
 import com.lviv.iot.domain.Animator;
 import com.lviv.iot.service.AnimatorService;
 import org.springframework.beans.factory.annotation.Autowired;
