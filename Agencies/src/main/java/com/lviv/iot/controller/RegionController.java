@@ -42,11 +42,12 @@ public class RegionController {
         return new ResponseEntity<>(regionDto, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{regionName}")
-    public ResponseEntity<?> updateRegion(@PathVariable String regionName, @RequestBody Region region) {
-        regionService.update(regionName, region);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    // Should never update primary key - it will throw an exception
+//    @PutMapping(value = "/{regionName}")
+//    public ResponseEntity<?> updateRegion(@PathVariable String regionName, @RequestBody Region region) {
+//        regionService.update(regionName, region);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     @DeleteMapping(value = "/{regionName}")
     public ResponseEntity<?> deleteRegion(@PathVariable String regionName) {

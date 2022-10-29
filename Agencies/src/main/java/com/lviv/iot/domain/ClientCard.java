@@ -19,7 +19,7 @@ public class ClientCard {
     private List<Client> clientsById;
     @ManyToMany
     @JoinTable(name = "card_event_discount", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "client_card_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false))
-    private Set<Event> events;
+    private Set<Event> event;
 
     public Integer getId() {
         return id;
@@ -58,11 +58,11 @@ public class ClientCard {
         this.clientsById = clientsById;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Set<Event> getEvent() {
+        return event;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setEvent(Set<Event> event) {
+        this.event = event;
     }
 }

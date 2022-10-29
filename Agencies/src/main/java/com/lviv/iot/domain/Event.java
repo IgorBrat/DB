@@ -1,7 +1,6 @@
 package com.lviv.iot.domain;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,12 +13,10 @@ public class Event {
     @Basic
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "eventByEventId")
-    private List<Order> ordersById;
-    @ManyToMany(mappedBy = "events")
-    private Set<ClientCard> clientCards;
-    @ManyToMany(mappedBy = "events")
-    private Set<Equipment> equipments;
+    @ManyToMany(mappedBy = "event")
+    private Set<ClientCard> client_card;
+    @ManyToMany(mappedBy = "event")
+    private Set<Equipment> equipment;
 
     public Integer getId() {
         return id;
@@ -50,27 +47,19 @@ public class Event {
         return Objects.hash(id, name);
     }
 
-    public List<Order> getOrdersById() {
-        return ordersById;
+    public Set<ClientCard> getClient_card() {
+        return client_card;
     }
 
-    public void setOrdersById(List<Order> ordersById) {
-        this.ordersById = ordersById;
+    public void setClient_card(Set<ClientCard> client_card) {
+        this.client_card = client_card;
     }
 
-    public Set<ClientCard> getClientCards() {
-        return clientCards;
+    public Set<Equipment> getEquipment() {
+        return equipment;
     }
 
-    public void setClientCards(Set<ClientCard> clientCards) {
-        this.clientCards = clientCards;
-    }
-
-    public Set<Equipment> getEquipments() {
-        return equipments;
-    }
-
-    public void setEquipments(Set<Equipment> equipments) {
-        this.equipments = equipments;
+    public void setEquipment(Set<Equipment> equipment) {
+        this.equipment = equipment;
     }
 }

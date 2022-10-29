@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `boklach`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `phone` VARCHAR(12) NOT NULL UNIQUE,
   `email` VARCHAR(100) NOT NULL UNIQUE,
-  PRIMARY KEY (`id`, `phone`, `email`))
+  PRIMARY KEY (`id`))
 
 AUTO_INCREMENT = 1;
 

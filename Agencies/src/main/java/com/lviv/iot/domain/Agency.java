@@ -1,7 +1,6 @@
 package com.lviv.iot.domain;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,24 +17,19 @@ public class Agency {
     @Column(name = "owner")
     private String owner;
     @Basic
-    @Column(name = "city_name")
-    private String cityName;
-    @Basic
-    @Column(name = "region_name")
-    private String regionName;
-    @Basic
     @Column(name = "hq_address")
     private String hqAddress;
-    @OneToOne(mappedBy = "agencyById")
-    private User user;
     @ManyToOne
     @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
     private City city;
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
     @ManyToMany
     @JoinTable(name = "agency_animator", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "agency_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "animator_id", referencedColumnName = "id", nullable = false))
     private Set<Animator> animators;
     @OneToMany(mappedBy = "agency")
-    private List<Order> orders;
+    private Set<Order> orders;
 
     public Integer getId() {
         return id;
@@ -61,22 +55,6 @@ public class Agency {
         this.owner = owner;
     }
 
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
     public String getHqAddress() {
         return hqAddress;
     }
@@ -90,20 +68,12 @@ public class Agency {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Agency agency = (Agency) o;
-        return Objects.equals(id, agency.id) && Objects.equals(name, agency.name) && Objects.equals(owner, agency.owner) && Objects.equals(cityName, agency.cityName) && Objects.equals(regionName, agency.regionName) && Objects.equals(hqAddress, agency.hqAddress);
+        return Objects.equals(id, agency.id) && Objects.equals(name, agency.name) && Objects.equals(owner, agency.owner) && Objects.equals(hqAddress, agency.hqAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, owner, cityName, regionName, hqAddress);
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        return Objects.hash(id, name, owner, hqAddress);
     }
 
     public City getCity() {
@@ -114,6 +84,14 @@ public class Agency {
         this.city = city;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Set<Animator> getAnimators() {
         return animators;
     }
@@ -122,11 +100,11 @@ public class Agency {
         this.animators = animators;
     }
 
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 }

@@ -20,12 +20,6 @@ public class Order {
     @Column(name = "duration")
     private Time duration;
     @Basic
-    @Column(name = "city_name")
-    private String cityName;
-    @Basic
-    @Column(name = "region_name")
-    private String regionName;
-    @Basic
     @Column(name = "street_address")
     private String streetAddress;
     @Basic
@@ -71,22 +65,6 @@ public class Order {
         this.duration = duration;
     }
 
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
     public String getStreetAddress() {
         return streetAddress;
     }
@@ -108,12 +86,12 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(id, order.id) && Objects.equals(datetime, order.datetime) && Objects.equals(duration, order.duration) && Objects.equals(cityName, order.cityName) && Objects.equals(regionName, order.regionName) && Objects.equals(streetAddress, order.streetAddress) && Objects.equals(totalPrice, order.totalPrice);
+        return Objects.equals(id, order.id) && Objects.equals(datetime, order.datetime) && Objects.equals(duration, order.duration) && Objects.equals(streetAddress, order.streetAddress) && Objects.equals(totalPrice, order.totalPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, datetime, duration, cityName, regionName, streetAddress, totalPrice);
+        return Objects.hash(id, datetime, duration, streetAddress, totalPrice);
     }
 
     public Client getClientByClientId() {

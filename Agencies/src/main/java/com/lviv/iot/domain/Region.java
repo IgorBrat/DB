@@ -1,17 +1,14 @@
 package com.lviv.iot.domain;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Region {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "regionByRegionName")
-    private List<City> cities;
 
     public String getName() {
         return name;
@@ -34,11 +31,11 @@ public class Region {
         return Objects.hash(name);
     }
 
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
+//    public Collection<City> getCitiesByName() {
+//        return citiesByName;
+//    }
+//
+//    public void setCitiesByName(Collection<City> citiesByName) {
+//        this.citiesByName = citiesByName;
+//    }
 }

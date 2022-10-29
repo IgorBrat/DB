@@ -30,13 +30,15 @@ public class RegionServiceImpl implements RegionService {
         return regionRepository.save(region);
     }
 
-    // I don`t think it will work as region_name is its` own id
     @Override
     public void update(String regionName, Region newRegion) {
         Region region = regionRepository.findById(regionName)
                 .orElseThrow();
-        region.setName(regionName);
+        System.out.println(region.getName());
+        region.setName(newRegion.getName());
+        System.out.println(region.getName());
         regionRepository.save(region);
+        System.out.println("updated");
     }
 
     @Override

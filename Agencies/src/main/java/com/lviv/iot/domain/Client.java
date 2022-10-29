@@ -21,16 +21,8 @@ public class Client {
     @Column(name = "birthday")
     private Date birthday;
     @Basic
-    @Column(name = "city_name")
-    private String cityName;
-    @Basic
-    @Column(name = "region_name")
-    private String regionName;
-    @Basic
     @Column(name = "street_address")
     private String streetAddress;
-    @OneToOne(mappedBy = "clientById")
-    private User user;
     @ManyToOne
     @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
     private City city;
@@ -39,6 +31,9 @@ public class Client {
     private ClientCard clientCardByClientCardId;
     @OneToMany(mappedBy = "clientByClientId")
     private List<Order> ordersById;
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     public Integer getId() {
         return id;
@@ -72,22 +67,6 @@ public class Client {
         this.birthday = birthday;
     }
 
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
     public String getStreetAddress() {
         return streetAddress;
     }
@@ -101,20 +80,12 @@ public class Client {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(id, client.id) && Objects.equals(surname, client.surname) && Objects.equals(name, client.name) && Objects.equals(birthday, client.birthday) && Objects.equals(cityName, client.cityName) && Objects.equals(regionName, client.regionName) && Objects.equals(streetAddress, client.streetAddress);
+        return Objects.equals(id, client.id) && Objects.equals(surname, client.surname) && Objects.equals(name, client.name) && Objects.equals(birthday, client.birthday) && Objects.equals(streetAddress, client.streetAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, surname, name, birthday, cityName, regionName, streetAddress);
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        return Objects.hash(id, surname, name, birthday, streetAddress);
     }
 
     public City getCity() {
@@ -139,5 +110,13 @@ public class Client {
 
     public void setOrdersById(List<Order> ordersById) {
         this.ordersById = ordersById;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -4,29 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(UserPK.class)
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private Integer id;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Basic
     @Column(name = "phone")
     private String phone;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Basic
     @Column(name = "email")
     private String email;
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "user_id", nullable = false)
-    private Agency agencyById;
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "user_id", nullable = false)
-    private Animator animatorById;
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "user_id", nullable = false)
-    private Client clientById;
+    @OneToOne(mappedBy = "user")
+    private Agency agency;
+    @OneToOne(mappedBy = "user")
+    private Animator animator;
+    @OneToOne(mappedBy = "user")
+    private Client client;
 
     public Integer getId() {
         return id;
@@ -65,27 +59,27 @@ public class User {
         return Objects.hash(id, phone, email);
     }
 
-    public Agency getAgencyById() {
-        return agencyById;
+    public Agency getAgency() {
+        return agency;
     }
 
-    public void setAgencyById(Agency agencyById) {
-        this.agencyById = agencyById;
+    public void setAgency(Agency agency) {
+        this.agency = agency;
     }
 
-    public Animator getAnimatorById() {
-        return animatorById;
+    public Animator getAnimator() {
+        return animator;
     }
 
-    public void setAnimatorById(Animator animatorById) {
-        this.animatorById = animatorById;
+    public void setAnimator(Animator animator) {
+        this.animator = animator;
     }
 
-    public Client getClientById() {
-        return clientById;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientById(Client clientById) {
-        this.clientById = clientById;
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

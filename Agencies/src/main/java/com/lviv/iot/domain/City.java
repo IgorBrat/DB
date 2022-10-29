@@ -7,11 +7,9 @@ import java.util.Objects;
 @Entity
 @IdClass(CityPK.class)
 public class City {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "name")
     private String name;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "region_name")
     private String regionName;
@@ -19,9 +17,9 @@ public class City {
     private List<Agency> agencies;
     @OneToMany(mappedBy = "city")
     private List<Animator> animators;
-    @ManyToOne
-    @JoinColumn(name = "region_name", referencedColumnName = "name", nullable = false)
-    private Region regionByRegionName;
+//    @ManyToOne
+//    @JoinColumn(name = "region_name", referencedColumnName = "name", nullable = false)
+//    private Region regionByRegionName;
     @OneToMany(mappedBy = "city")
     private List<Client> clients;
     @OneToMany(mappedBy = "city")
@@ -72,13 +70,13 @@ public class City {
         this.animators = animators;
     }
 
-    public Region getRegionByRegionName() {
-        return regionByRegionName;
-    }
-
-    public void setRegionByRegionName(Region regionByRegionName) {
-        this.regionByRegionName = regionByRegionName;
-    }
+//    public Region getRegionByRegionName() {
+//        return regionByRegionName;
+//    }
+//
+//    public void setRegionByRegionName(Region regionByRegionName) {
+//        this.regionByRegionName = regionByRegionName;
+//    }
 
     public List<Client> getClients() {
         return clients;

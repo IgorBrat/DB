@@ -18,21 +18,16 @@ public class Animator {
     @Column(name = "name")
     private String name;
     @Basic
-    @Column(name = "city_name")
-    private String cityName;
-    @Basic
-    @Column(name = "region_name")
-    private String regionName;
-    @Basic
     @Column(name = "salary_per_hour")
     private BigDecimal salaryPerHour;
-    @OneToOne(mappedBy = "animatorById")
-    private User user;
     @ManyToOne
     @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
     private City city;
     @ManyToMany(mappedBy = "animators")
     private Set<Agency> agencies;
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
     @ManyToMany(mappedBy = "animators")
     private Set<Order> orders;
 
@@ -60,22 +55,6 @@ public class Animator {
         this.name = name;
     }
 
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
     public BigDecimal getSalaryPerHour() {
         return salaryPerHour;
     }
@@ -89,20 +68,12 @@ public class Animator {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animator animator = (Animator) o;
-        return Objects.equals(id, animator.id) && Objects.equals(surname, animator.surname) && Objects.equals(name, animator.name) && Objects.equals(cityName, animator.cityName) && Objects.equals(regionName, animator.regionName) && Objects.equals(salaryPerHour, animator.salaryPerHour);
+        return Objects.equals(id, animator.id) && Objects.equals(surname, animator.surname) && Objects.equals(name, animator.name) && Objects.equals(salaryPerHour, animator.salaryPerHour);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, surname, name, cityName, regionName, salaryPerHour);
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        return Objects.hash(id, surname, name, salaryPerHour);
     }
 
     public City getCity() {
@@ -119,6 +90,14 @@ public class Animator {
 
     public void setAgencies(Set<Agency> agencies) {
         this.agencies = agencies;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Order> getOrders() {
