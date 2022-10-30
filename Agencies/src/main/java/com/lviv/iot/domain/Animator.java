@@ -21,7 +21,7 @@ public class Animator {
     @Column(name = "salary_per_hour")
     private BigDecimal salaryPerHour;
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
+    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
     @ManyToMany(mappedBy = "animators")
     private Set<Agency> agencies;

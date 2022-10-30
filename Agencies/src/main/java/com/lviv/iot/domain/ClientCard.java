@@ -15,11 +15,11 @@ public class ClientCard {
     @Basic
     @Column(name = "name")
     private String name;
+    @Basic
+    @Column(name = "discount_percentage")
+    private Float discountPercentage;
     @OneToMany(mappedBy = "clientCardByClientCardId")
     private List<Client> clientsById;
-    @ManyToMany
-    @JoinTable(name = "card_event_discount", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "client_card_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false))
-    private Set<Event> event;
 
     public Integer getId() {
         return id;
@@ -58,11 +58,4 @@ public class ClientCard {
         this.clientsById = clientsById;
     }
 
-    public Set<Event> getEvent() {
-        return event;
-    }
-
-    public void setEvent(Set<Event> event) {
-        this.event = event;
-    }
 }

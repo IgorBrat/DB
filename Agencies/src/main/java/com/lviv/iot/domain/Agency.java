@@ -20,7 +20,7 @@ public class Agency {
     @Column(name = "hq_address")
     private String hqAddress;
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
+    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)

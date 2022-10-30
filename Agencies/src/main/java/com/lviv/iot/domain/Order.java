@@ -32,7 +32,7 @@ public class Order {
     @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
     private Event eventByEventId;
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
+    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
     @ManyToOne
     @JoinTable(name = "order_agency_animator", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "agency_id", referencedColumnName = "id", nullable = false))

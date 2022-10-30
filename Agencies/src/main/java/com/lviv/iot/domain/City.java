@@ -5,25 +5,31 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@IdClass(CityPK.class)
 public class City {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "name")
     private String name;
-    @Id
     @Column(name = "region_name")
     private String regionName;
     @OneToMany(mappedBy = "city")
     private List<Agency> agencies;
     @OneToMany(mappedBy = "city")
     private List<Animator> animators;
-//    @ManyToOne
-//    @JoinColumn(name = "region_name", referencedColumnName = "name", nullable = false)
-//    private Region regionByRegionName;
     @OneToMany(mappedBy = "city")
     private List<Client> clients;
     @OneToMany(mappedBy = "city")
     private List<Order> orders;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -69,14 +75,6 @@ public class City {
     public void setAnimators(List<Animator> animators) {
         this.animators = animators;
     }
-
-//    public Region getRegionByRegionName() {
-//        return regionByRegionName;
-//    }
-//
-//    public void setRegionByRegionName(Region regionByRegionName) {
-//        this.regionByRegionName = regionByRegionName;
-//    }
 
     public List<Client> getClients() {
         return clients;

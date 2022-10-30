@@ -24,7 +24,7 @@ public class Client {
     @Column(name = "street_address")
     private String streetAddress;
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "city_name", referencedColumnName = "name", nullable = false), @JoinColumn(name = "region_name", referencedColumnName = "region_name", nullable = false)})
+    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
     @ManyToOne
     @JoinColumn(name = "client_card_id", referencedColumnName = "id")
