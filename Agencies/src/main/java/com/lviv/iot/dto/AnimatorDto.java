@@ -7,13 +7,20 @@ import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
+import java.math.BigDecimal;
+
 @Builder
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Relation(itemRelation = "city", collectionRelation = "cities")
-public class CityDto extends RepresentationModel<CityDto> {
+@Relation(itemRelation = "animator", collectionRelation = "animators")
+public class AnimatorDto extends RepresentationModel<AnimatorDto> {
     private final Integer id;
+    private final String surname;
     private final String name;
-    private final String regionName;
+    private final BigDecimal salaryPerHour;
+    private final String city_name;
+    private final String region_name;
+    private final String phone;
+    private final String email;
 }

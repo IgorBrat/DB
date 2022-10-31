@@ -11,9 +11,9 @@ import org.springframework.hateoas.server.core.Relation;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Relation(itemRelation = "city", collectionRelation = "cities")
-public class CityDto extends RepresentationModel<CityDto> {
+@Relation(itemRelation = "user", collectionRelation = "users")
+public class UserDto extends RepresentationModel<UserDto> {
     private final Integer id;
-    private final String name;
-    private final String regionName;
+    private final String phone;
+    private final String email;
 }

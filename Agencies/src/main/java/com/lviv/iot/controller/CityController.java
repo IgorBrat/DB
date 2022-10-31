@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +32,24 @@ public class CityController {
         City city = cityService.findById(cityId);
         CityDto cityDto = cityDtoAssembler.toModel(city);
         return new ResponseEntity<>(cityDto, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "")
+    public ResponseEntity<CityDto> addCity(@RequestBody City city) {
+        City newCity = cityService.create(city);
+        CityDto cityDto = cityDtoAssembler.toModel(newCity);
+        return new ResponseEntity<>(cityDto, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/{cityId}")
+    public ResponseEntity<?> updateCity(@RequestBody City uCity, @PathVariable Integer cityId) {
+        cityService.update(cityId, uCity);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{cityId}")
+    public ResponseEntity<?> deleteCity(@PathVariable Integer cityId) {
+        cityService.delete(cityId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

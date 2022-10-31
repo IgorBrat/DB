@@ -1,0 +1,83 @@
+package com.lviv.iot.controller;
+
+import com.lviv.iot.domain.Agency;
+import com.lviv.iot.domain.Animator;
+import com.lviv.iot.dto.AgencyDto;
+import com.lviv.iot.dto.AnimatorDto;
+import com.lviv.iot.dto.assembler.AgencyDtoAssembler;
+import com.lviv.iot.dto.assembler.AnimatorDtoAssembler;
+import com.lviv.iot.service.AnimatorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+@RestController
+@RequestMapping(value = "animators")
+public class AnimatorController {
+    @Autowired
+    private AnimatorService animatorService;
+    @Autowired
+    private AnimatorDtoAssembler animatorDtoAssembler;
+    @Autowired
+    private AgencyDtoAssembler agencyDtoAssembler;
+
+    @GetMapping(value = "")
+    public ResponseEntity<CollectionModel<AnimatorDto>> getAllAnimators() {
+        List<Animator> animators = animatorService.findAll();
+        CollectionModel<AnimatorDto> animatorDtos = animatorDtoAssembler.toCollectionModel(animators);
+        return new ResponseEntity<>(animatorDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<AnimatorDto> getAnimator(@PathVariable Integer id) {
+        Animator animator = animatorService.findById(id);
+        AnimatorDto animatorDto = animatorDtoAssembler.toModel(animator);
+        return new ResponseEntity<>(animatorDto, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{cityId}/{userId}")
+    public ResponseEntity<AnimatorDto> addAnimator(@RequestBody Animator animator, @PathVariable Integer cityId,
+                                                   @PathVariable Integer userId) {
+        Animator newAnimator = animatorService.create(animator, cityId, userId);
+        AnimatorDto animatorDto = animatorDtoAssembler.toModel(newAnimator);
+        return new ResponseEntity<>(animatorDto, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/{id}/{cityId}/{userId}")
+    public ResponseEntity<?> updateAnimator(@RequestBody Animator uAnimator, @PathVariable Integer id,
+                                            @PathVariable Integer cityId, @PathVariable Integer userId) {
+        animatorService.update(id, uAnimator, cityId, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteAnimator(@PathVariable Integer id) {
+        animatorService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "cities/{cityId}")
+    public ResponseEntity<CollectionModel<AnimatorDto>> getAnimatorsByCityId(@PathVariable Integer cityId) {
+        List<Animator> animators = animatorService.findAnimatorsByCityId(cityId);
+        Link selfLink = linkTo(methodOn(AnimatorController.class).getAnimatorsByCityId(cityId)).withSelfRel();
+        CollectionModel<AnimatorDto> animatorDtos = animatorDtoAssembler.toCollectionModel(animators, selfLink);
+        return new ResponseEntity<>(animatorDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "{id}/agencies")
+    public ResponseEntity<CollectionModel<AgencyDto>> getAgenciesById(@PathVariable Integer id) {
+        Set<Agency> agencies = animatorService.findAgenciesById(id);
+        Link selfLink = linkTo(methodOn(AnimatorController.class).getAgenciesById(id)).withSelfRel();
+        CollectionModel<AgencyDto> agencyDtos = agencyDtoAssembler.toCollectionModel(agencies, selfLink);
+        return new ResponseEntity<>(agencyDtos, HttpStatus.OK);
+    }
+}

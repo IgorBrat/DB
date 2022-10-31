@@ -1,6 +1,7 @@
 package com.lviv.iot.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class ClientCard {
     private String name;
     @Basic
     @Column(name = "discount_percentage")
-    private Float discountPercentage;
+    private BigDecimal discountPercentage;
     @OneToMany(mappedBy = "clientCardByClientCardId")
     private List<Client> clientsById;
 
@@ -35,6 +36,14 @@ public class ClientCard {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
     @Override

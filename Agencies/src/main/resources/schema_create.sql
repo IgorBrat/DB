@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `boklach`.`agency` (
   `user_id` INT NOT NULL UNIQUE,
   `name` VARCHAR(50) NOT NULL,
   `owner` VARCHAR(50) NOT NULL,
-  `city_id` INT NOT NULL,
+  `city_id` INT NOT NULL DEFAULT 1,
   `hq_address` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `agency_city_region`

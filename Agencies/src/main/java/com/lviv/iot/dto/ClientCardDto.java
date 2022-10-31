@@ -7,13 +7,15 @@ import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
+import java.math.BigDecimal;
+
 @Builder
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Relation(itemRelation = "city", collectionRelation = "cities")
-public class CityDto extends RepresentationModel<CityDto> {
+@Relation(itemRelation = "clientCard", collectionRelation = "clientCards")
+public class ClientCardDto extends RepresentationModel<ClientCardDto> {
     private final Integer id;
     private final String name;
-    private final String regionName;
+    private final BigDecimal discountPercentage;
 }
