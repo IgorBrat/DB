@@ -1,6 +1,7 @@
 package com.lviv.iot.domain;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,6 +17,8 @@ public class Equipment {
     @ManyToMany
     @JoinTable(name = "event_equipment", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false))
     private Set<Event> events;
+    @OneToMany(mappedBy = "equipment")
+    private List<EventEquipment> eventsRelation;
 
     public Integer getId() {
         return id;
@@ -52,5 +55,13 @@ public class Equipment {
 
     public void setEvents(Set<Event> event) {
         this.events = event;
+    }
+
+    public void setEventsRelation(List<EventEquipment> eventsRelation) {
+        this.eventsRelation = eventsRelation;
+    }
+
+    public List<EventEquipment> getEventsRelation() {
+        return eventsRelation;
     }
 }
