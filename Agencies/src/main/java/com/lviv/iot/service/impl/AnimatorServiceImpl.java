@@ -99,5 +99,4 @@ public class AnimatorServiceImpl implements AnimatorService {
                 .orElseThrow(() -> new AnimatorNotFoundException(id));
         animatorRepository.delete(animator);
     }
-
 }

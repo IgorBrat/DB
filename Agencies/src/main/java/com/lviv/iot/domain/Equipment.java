@@ -15,7 +15,7 @@ public class Equipment {
     private String name;
     @ManyToMany
     @JoinTable(name = "event_equipment", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false))
-    private Set<Event> event;
+    private Set<Event> events;
 
     public Integer getId() {
         return id;
@@ -46,11 +46,11 @@ public class Equipment {
         return Objects.hash(id, name);
     }
 
-    public Set<Event> getEvent() {
-        return event;
+    public Set<Event> getEvents() {
+        return events;
     }
 
-    public void setEvent(Set<Event> event) {
-        this.event = event;
+    public void setEvents(Set<Event> event) {
+        this.events = event;
     }
 }

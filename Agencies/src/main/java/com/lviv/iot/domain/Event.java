@@ -13,8 +13,8 @@ public class Event {
     @Basic
     @Column(name = "name")
     private String name;
-    @ManyToMany(mappedBy = "event")
-    private Set<Equipment> equipment;
+    @ManyToMany(mappedBy = "events")
+    private Set<Equipment> equipments;
 
     public Integer getId() {
         return id;
@@ -45,11 +45,11 @@ public class Event {
         return Objects.hash(id, name);
     }
 
-    public Set<Equipment> getEquipment() {
-        return equipment;
+    public Set<Equipment> getEquipments() {
+        return equipments;
     }
 
-    public void setEquipment(Set<Equipment> equipment) {
-        this.equipment = equipment;
+    public void setEquipments(Set<Equipment> equipment) {
+        this.equipments = equipment;
     }
 }
