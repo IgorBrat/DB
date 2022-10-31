@@ -2,10 +2,13 @@ package com.lviv.iot.controller;
 
 import com.lviv.iot.domain.Equipment;
 import com.lviv.iot.domain.Event;
+import com.lviv.iot.domain.EventEquipment;
 import com.lviv.iot.dto.EquipmentDto;
 import com.lviv.iot.dto.EventDto;
+import com.lviv.iot.dto.EventEquipmentDto;
 import com.lviv.iot.dto.assembler.EquipmentDtoAssembler;
 import com.lviv.iot.dto.assembler.EventDtoAssembler;
+import com.lviv.iot.dto.assembler.EventEquipmentDtoAssembler;
 import com.lviv.iot.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -29,6 +32,8 @@ public class EventController {
     private EventDtoAssembler eventDtoAssembler;
     @Autowired
     private EquipmentDtoAssembler equipmentDtoAssembler;
+    @Autowired
+    private EventEquipmentDtoAssembler eventEquipmentDtoAssembler;
 
     @GetMapping(value = "")
     public ResponseEntity<CollectionModel<EventDto>> getAllEvents() {
@@ -69,5 +74,13 @@ public class EventController {
         Link selfLink = linkTo(methodOn(EventController.class).getEquipmentsById(id)).withSelfRel();
         CollectionModel<EquipmentDto> equipmentDtos = equipmentDtoAssembler.toCollectionModel(equipment, selfLink);
         return new ResponseEntity<>(equipmentDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/equipmentsQuantity")
+    public ResponseEntity<CollectionModel<EventEquipmentDto>> getEquipmentsAndQuantityById(@PathVariable Integer id) {
+        List<EventEquipment> eventEquipments = eventService.findEquipmentsAndQuantityById(id);
+        Link selfLink = linkTo(methodOn(EventController.class).getEquipmentsAndQuantityById(id)).withSelfRel();
+        CollectionModel<EventEquipmentDto> eventEquipmentDtos = eventEquipmentDtoAssembler.toCollectionModel(eventEquipments, selfLink);
+        return new ResponseEntity<>(eventEquipmentDtos, HttpStatus.OK);
     }
 }

@@ -2,6 +2,7 @@ package com.lviv.iot.service.impl;
 
 import com.lviv.iot.domain.Equipment;
 import com.lviv.iot.domain.Event;
+import com.lviv.iot.domain.EventEquipment;
 import com.lviv.iot.exception.EventNotFoundException;
 import com.lviv.iot.repository.EventRepository;
 import com.lviv.iot.service.EventService;
@@ -52,5 +53,12 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new EventNotFoundException(id));
         return event.getEquipments();
+    }
+
+    @Override
+    public List<EventEquipment> findEquipmentsAndQuantityById(Integer id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
+        return event.getEquipmentsRelation();
     }
 }

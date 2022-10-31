@@ -1,32 +1,26 @@
 package com.lviv.iot.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class EventEquipmentPK implements Serializable {
-    @Column(name = "event_id")
-    @Id
-    private Integer eventId;
-    @Column(name = "equipment_id")
-    @Id
-    private Integer equipmentId;
+    private Integer event;
+    private Integer equipment;
 
     public Integer getEvent() {
-        return eventId;
+        return event;
     }
 
     public void setEvent(Integer eventId) {
-        this.eventId = eventId;
+        this.event = eventId;
     }
 
     public Integer getEquipment() {
-        return equipmentId;
+        return equipment;
     }
 
     public void setEquipment(Integer equipmentId) {
-        this.equipmentId = equipmentId;
+        this.equipment = equipmentId;
     }
 
     @Override
@@ -34,11 +28,11 @@ public class EventEquipmentPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EventEquipmentPK that = (EventEquipmentPK) o;
-        return Objects.equals(eventId, that.eventId) && Objects.equals(equipmentId, that.equipmentId);
+        return Objects.equals(event, that.event) && Objects.equals(equipment, that.equipment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventId, equipmentId);
+        return Objects.hash(event, equipment);
     }
 }
