@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface EventService extends GeneralService<Event, Integer> {
-    public Set<Equipment> findEquipmentsById(Integer id);
-    public List<EventEquipment> findEquipmentsAndQuantityById(Integer id);
+    Set<Equipment> findEquipmentsById(Integer id);
+    List<EventEquipment> findEquipmentsAndQuantityById(Integer id);
 }

@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "client_card", schema = "boklach", catalog = "")
@@ -19,7 +18,7 @@ public class ClientCard {
     @Basic
     @Column(name = "discount_percentage")
     private BigDecimal discountPercentage;
-    @OneToMany(mappedBy = "clientCardByClientCardId")
+    @OneToMany(mappedBy = "clientCard")
     private List<Client> clientsById;
 
     public Integer getId() {

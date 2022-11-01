@@ -28,9 +28,9 @@ public class Client {
     private City city;
     @ManyToOne
     @JoinColumn(name = "client_card_id", referencedColumnName = "id")
-    private ClientCard clientCardByClientCardId;
-    @OneToMany(mappedBy = "clientByClientId")
-    private List<Order> ordersById;
+    private ClientCard clientCard;
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
@@ -96,20 +96,20 @@ public class Client {
         this.city = city;
     }
 
-    public ClientCard getClientCardByClientCardId() {
-        return clientCardByClientCardId;
+    public ClientCard getClientCard() {
+        return clientCard;
     }
 
-    public void setClientCardByClientCardId(ClientCard clientCardByClientCardId) {
-        this.clientCardByClientCardId = clientCardByClientCardId;
+    public void setClientCard(ClientCard clientCardByClientCardId) {
+        this.clientCard = clientCardByClientCardId;
     }
 
-    public List<Order> getOrdersById() {
-        return ordersById;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrdersById(List<Order> ordersById) {
-        this.ordersById = ordersById;
+    public void setOrders(List<Order> ordersById) {
+        this.orders = ordersById;
     }
 
     public User getUser() {

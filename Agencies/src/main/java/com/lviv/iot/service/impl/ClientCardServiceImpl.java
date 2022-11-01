@@ -1,5 +1,6 @@
 package com.lviv.iot.service.impl;
 
+import com.lviv.iot.domain.Client;
 import com.lviv.iot.domain.ClientCard;
 import com.lviv.iot.exception.ClientCardNotFoundException;
 import com.lviv.iot.repository.ClientCardRepository;
@@ -44,5 +45,12 @@ public class ClientCardServiceImpl implements ClientCardService {
         ClientCard clientCard = clientCardRepository.findById(id)
                 .orElseThrow(() -> new ClientCardNotFoundException(id));
         clientCardRepository.delete(clientCard);
+    }
+
+    @Override
+    public List<Client> findClientsById(Integer id) {
+        ClientCard clientCard = clientCardRepository.findById(id)
+                .orElseThrow(() -> new ClientCardNotFoundException(id));
+        return clientCard.getClientsById();
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.hateoas.server.core.Relation;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Relation(itemRelation = "eventEquipment", collectionRelation = "eventEquipments")
 public class EventEquipmentDto extends RepresentationModel<EventEquipmentDto> {
-//    private final String eventName;
     private final String equipmentName;
     private final Integer quantity;
 }

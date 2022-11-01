@@ -8,19 +8,23 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import java.math.BigDecimal;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 @Builder
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Relation(itemRelation = "animator", collectionRelation = "animators")
-public class AnimatorDto extends RepresentationModel<AnimatorDto> {
+@Relation(itemRelation = "order", collectionRelation = "orders")
+public class OrderDto extends RepresentationModel<OrderDto> {
     private final Integer id;
-    private final String surname;
-    private final String name;
-    private final BigDecimal salaryPerHour;
+    private final Timestamp datetime;
+    private final Time duration;
+    private final String streetAddress;
+    private final BigDecimal totalPrice;
+    private final String eventName;
     private final String cityName;
     private final String regionName;
-    private final String phone;
-    private final String email;
+    private final String clientSurname;
+    private final String clientEmail;
 }

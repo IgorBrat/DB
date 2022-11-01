@@ -1,6 +1,5 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.domain.Animator;
 import com.lviv.iot.domain.City;
 import com.lviv.iot.exception.CityNotFoundException;
 import com.lviv.iot.repository.CityRepository;

@@ -28,8 +28,6 @@ public class Agency {
     @ManyToMany
     @JoinTable(name = "agency_animator", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "agency_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "animator_id", referencedColumnName = "id", nullable = false))
     private Set<Animator> animators;
-    @OneToMany(mappedBy = "agency")
-    private Set<Order> orders;
 
     public Integer getId() {
         return id;
@@ -98,13 +96,5 @@ public class Agency {
 
     public void setAnimators(Set<Animator> animators) {
         this.animators = animators;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 }

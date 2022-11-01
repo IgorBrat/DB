@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `boklach`.`client` (
   `name` VARCHAR(50) NOT NULL,
   `birthday` DATE NULL DEFAULT NULL,
   `city_id` INT NOT NULL,
-  `street_address` VARCHAR(50) NULL DEFAULT NULL,
+  `street_address` VARCHAR(50) NOT NULL,
   `client_card_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `client_city`

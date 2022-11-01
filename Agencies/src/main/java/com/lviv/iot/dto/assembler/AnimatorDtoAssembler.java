@@ -21,8 +21,8 @@ public class AnimatorDtoAssembler implements RepresentationModelAssembler<Animat
                 .surname(entity.getSurname())
                 .name(entity.getName())
                 .salaryPerHour(entity.getSalaryPerHour())
-                .city_name(entity.getCity().getName())
-                .region_name(entity.getCity().getRegionName())
+                .cityName(entity.getCity().getName())
+                .regionName(entity.getCity().getRegionName())
                 .phone(entity.getUser().getPhone())
                 .email(entity.getUser().getEmail())
                 .build();

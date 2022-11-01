@@ -1,9 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.domain.Agency;
-import com.lviv.iot.domain.Animator;
-import com.lviv.iot.domain.City;
-import com.lviv.iot.domain.User;
+import com.lviv.iot.domain.*;
 import com.lviv.iot.exception.AgencyNotFoundException;
 import com.lviv.iot.exception.CityNotFoundException;
 import com.lviv.iot.exception.UserNotFoundException;

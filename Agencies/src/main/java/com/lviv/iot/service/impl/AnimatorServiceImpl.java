@@ -1,9 +1,6 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.domain.Agency;
-import com.lviv.iot.domain.Animator;
-import com.lviv.iot.domain.City;
-import com.lviv.iot.domain.User;
+import com.lviv.iot.domain.*;
 import com.lviv.iot.exception.AnimatorNotFoundException;
 import com.lviv.iot.exception.CityNotFoundException;
 import com.lviv.iot.exception.UserNotFoundException;
@@ -91,6 +88,13 @@ public class AnimatorServiceImpl implements AnimatorService {
         Animator animator =  animatorRepository.findById(id)
                 .orElseThrow(() -> new AnimatorNotFoundException(id));
         return animator.getAgencies();
+    }
+
+    @Override
+    public Set<Order> findOrdersById(Integer id) {
+        Animator animator =  animatorRepository.findById(id)
+                .orElseThrow(() -> new AnimatorNotFoundException(id));
+        return animator.getOrders();
     }
 
     @Override

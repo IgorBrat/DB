@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "`order`")
 public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,16 +28,13 @@ public class Order {
     private BigDecimal totalPrice;
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
-    private Client clientByClientId;
+    private Client client;
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
-    private Event eventByEventId;
+    private Event event;
     @ManyToOne
     @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
-    @ManyToOne
-    @JoinTable(name = "order_agency_animator", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "agency_id", referencedColumnName = "id", nullable = false))
-    private Agency agency;
     @ManyToMany
     @JoinTable(name = "order_agency_animator", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "animator_id", referencedColumnName = "id", nullable = false))
     private Set<Animator> animators;
@@ -94,20 +92,20 @@ public class Order {
         return Objects.hash(id, datetime, duration, streetAddress, totalPrice);
     }
 
-    public Client getClientByClientId() {
-        return clientByClientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientByClientId(Client clientByClientId) {
-        this.clientByClientId = clientByClientId;
+    public void setClient(Client clientByClientId) {
+        this.client = clientByClientId;
     }
 
-    public Event getEventByEventId() {
-        return eventByEventId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventByEventId(Event eventByEventId) {
-        this.eventByEventId = eventByEventId;
+    public void setEvent(Event eventByEventId) {
+        this.event = eventByEventId;
     }
 
     public City getCity() {
@@ -116,14 +114,6 @@ public class Order {
 
     public void setCity(City city) {
         this.city = city;
-    }
-
-    public Agency getAgency() {
-        return agency;
-    }
-
-    public void setAgency(Agency agency) {
-        this.agency = agency;
     }
 
     public Set<Animator> getAnimators() {
