@@ -1,11 +1,13 @@
-# DB lab4 IoT 2022
+# DB lab5 IoT 2022
 
 ## Task:
 
-Using SpringJdbcTemplate, write a console application to work with db from labs 1, 3.
+Using Spring Jpa/ Hybernate, write a REST application to work with db from labs 1, 3.
 
-Required methods:
+Required functionality:
 - get data from table;
 - insert data;
 - delete data;
-- update data.
+- update data;
+- get data from Many:1 relationship (eg. get all Persons from City);
+- get data from Many:Many relationship (eg. get all Animators for Agency and vice versa).
