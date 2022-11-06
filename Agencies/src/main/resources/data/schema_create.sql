@@ -422,7 +422,7 @@ INSERT INTO equipment (name, shop_id) VALUES ('micro', 2);
 INSERT INTO equipment (name, shop_id) VALUES ('earphone', 3);
 INSERT INTO equipment (name, shop_id) VALUES ('magic stick', 2);
 INSERT INTO equipment (name, shop_id) VALUES ('balloon', 1);
-INSERT INTO equipment (name, shop_id) VALUES ('carnaval mask', 5);
+INSERT INTO equipment (name, shop_id) VALUES ('carnaval mask', 2);
 INSERT INTO equipment (name, shop_id) VALUES ('dj set', 4);
 INSERT INTO equipment (name, shop_id) VALUES ('speaker', 3);
 INSERT INTO equipment (name, shop_id) VALUES ('magic hat', 1);
