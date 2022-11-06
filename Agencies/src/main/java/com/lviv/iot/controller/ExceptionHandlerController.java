@@ -46,6 +46,13 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
     }
 
     @ResponseBody
+    @ExceptionHandler(EquipmentShopNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String equipmentShopNotFoundHandler(EquipmentShopNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
     @ExceptionHandler(EquipmentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     String equipmentNotFoundHandler(EquipmentNotFoundException ex) {

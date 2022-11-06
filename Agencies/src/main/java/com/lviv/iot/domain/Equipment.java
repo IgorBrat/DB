@@ -14,6 +14,9 @@ public class Equipment {
     @Basic
     @Column(name = "name")
     private String name;
+    @Basic
+    @Column(name = "shop_id")
+    private Integer shopId;
     @ManyToMany
     @JoinTable(name = "event_equipment", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false))
     private Set<Event> events;
@@ -34,6 +37,14 @@ public class Equipment {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shop_id) {
+        this.shopId = shop_id;
     }
 
     @Override

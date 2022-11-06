@@ -158,6 +158,18 @@ AUTO_INCREMENT = 1;
 
 
 -- -----------------------------------------------------
+-- Table `boklach`.`equipment_shop`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `boklach`.`equipment_shop` ;
+
+CREATE TABLE IF NOT EXISTS `boklach`.`equipment_shop` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`))
+AUTO_INCREMENT = 1;
+
+
+-- -----------------------------------------------------
 -- Table `boklach`.`equipment`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `boklach`.`equipment` ;
@@ -165,6 +177,7 @@ DROP TABLE IF EXISTS `boklach`.`equipment` ;
 CREATE TABLE IF NOT EXISTS `boklach`.`equipment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
+  `shop_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 AUTO_INCREMENT = 1;
 
@@ -396,18 +409,25 @@ INSERT INTO client (user_id, surname, name, birthday, city_id, street_address, c
 INSERT INTO client (user_id, surname, name, birthday, city_id, street_address, client_card_id) 
 	VALUES (30, 'Losa', 'Ivan', '2000-07-05', 1, 'Holovna str. 50', NULL);
 -- -----------------------------------------------------
+-- Table `boklach`.`equipment_shop`
+-- -----------------------------------------------------
+INSERT INTO equipment_shop (name) VALUES ('Beshketvill');
+INSERT INTO equipment_shop (name) VALUES ('Magician site');
+INSERT INTO equipment_shop (name) VALUES ('Presentvill');
+INSERT INTO equipment_shop (name) VALUES ('ForYourPleasure');
+-- -----------------------------------------------------
 -- Table `boklach`.`equipment`
 -- -----------------------------------------------------
-INSERT INTO equipment (name) VALUES ('micro');
-INSERT INTO equipment (name) VALUES ('earphone');
-INSERT INTO equipment (name) VALUES ('magic stick');
-INSERT INTO equipment (name) VALUES ('balloon');
-INSERT INTO equipment (name) VALUES ('carnaval mask');
-INSERT INTO equipment (name) VALUES ('dj set');
-INSERT INTO equipment (name) VALUES ('speaker');
-INSERT INTO equipment (name) VALUES ('magic hat');
-INSERT INTO equipment (name) VALUES ('synthesizer');
-INSERT INTO equipment (name) VALUES ('cosplay costume');
+INSERT INTO equipment (name, shop_id) VALUES ('micro', 2);
+INSERT INTO equipment (name, shop_id) VALUES ('earphone', 3);
+INSERT INTO equipment (name, shop_id) VALUES ('magic stick', 2);
+INSERT INTO equipment (name, shop_id) VALUES ('balloon', 1);
+INSERT INTO equipment (name, shop_id) VALUES ('carnaval mask', 5);
+INSERT INTO equipment (name, shop_id) VALUES ('dj set', 4);
+INSERT INTO equipment (name, shop_id) VALUES ('speaker', 3);
+INSERT INTO equipment (name, shop_id) VALUES ('magic hat', 1);
+INSERT INTO equipment (name, shop_id) VALUES ('synthesizer', 4);
+INSERT INTO equipment (name, shop_id) VALUES ('cosplay costume', 3);
 -- -----------------------------------------------------
 -- Table `boklach`.`event_equipment`
 -- -----------------------------------------------------
@@ -478,7 +498,3 @@ INSERT INTO order_agency_animator (order_id, agency_id, animator_id) VALUES (10,
 ALTER TABLE agency ADD INDEX agency_name(name ASC);
 ALTER TABLE animator ADD INDEX animator_surname(surname ASC);
 ALTER TABLE client ADD INDEX client_surname(surname ASC);
-
-SHOW INDEX FROM agency;
-SHOW INDEX FROM animator;
-SHOW INDEX FROM client;

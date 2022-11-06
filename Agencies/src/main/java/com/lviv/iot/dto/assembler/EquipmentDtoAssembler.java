@@ -17,6 +17,7 @@ public class EquipmentDtoAssembler implements RepresentationModelAssembler<Equip
         EquipmentDto equipmentDto = EquipmentDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
+                .shopId(entity.getShopId())
                 .build();
         Link selfLink = linkTo(methodOn(com.lviv.iot.controller.EquipmentController.class).getEquipment(equipmentDto.getId())).withSelfRel();
         equipmentDto.add(selfLink);

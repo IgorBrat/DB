@@ -36,7 +36,9 @@ public class Order {
     @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
     @ManyToMany
-    @JoinTable(name = "order_agency_animator", catalog = "", schema = "boklach", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "animator_id", referencedColumnName = "id", nullable = false))
+    @JoinTable(name = "order_agency_animator", catalog = "", schema = "boklach",
+            joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "animator_id", referencedColumnName = "id", nullable = false))
     private Set<Animator> animators;
 
     public Integer getId() {
