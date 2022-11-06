@@ -1,41 +1,56 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.ClientCardDao;
+import com.lviv.iot.domain.Client;
 import com.lviv.iot.domain.ClientCard;
+import com.lviv.iot.exception.ClientCardNotFoundException;
+import com.lviv.iot.repository.ClientCardRepository;
 import com.lviv.iot.service.ClientCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientCardServiceImpl implements ClientCardService {
     @Autowired
-    ClientCardDao clientCardDao;
+    private ClientCardRepository clientCardRepository;
 
     @Override
     public List<ClientCard> findAll() {
-        return clientCardDao.findAll();
+        return clientCardRepository.findAll();
     }
 
     @Override
-    public Optional<ClientCard> findById(Integer id) {
-        return clientCardDao.findById(id);
+    public ClientCard findById(Integer id) {
+        return clientCardRepository.findById(id)
+                .orElseThrow(() -> new ClientCardNotFoundException(id));
     }
 
     @Override
-    public int create(ClientCard clientCard) {
-        return clientCardDao.create(clientCard);
+    public ClientCard create(ClientCard clientCard) {
+        return clientCardRepository.save(clientCard);
     }
 
     @Override
-    public int update(Integer id, ClientCard clientCard) {
-        return clientCardDao.update(id, clientCard);
+    public void update(Integer id, ClientCard newClientCard) {
+        ClientCard clientCard = clientCardRepository.findById(id)
+                .orElseThrow(() -> new ClientCardNotFoundException(id));
+        clientCard.setName(newClientCard.getName());
+        clientCard.setDiscountPercentage(newClientCard.getDiscountPercentage());
+        clientCardRepository.save(clientCard);
     }
 
     @Override
-    public int delete(Integer id) {
-        return clientCardDao.delete(id);
+    public void delete(Integer id) {
+        ClientCard clientCard = clientCardRepository.findById(id)
+                .orElseThrow(() -> new ClientCardNotFoundException(id));
+        clientCardRepository.delete(clientCard);
+    }
+
+    @Override
+    public List<Client> findClientsById(Integer id) {
+        ClientCard clientCard = clientCardRepository.findById(id)
+                .orElseThrow(() -> new ClientCardNotFoundException(id));
+        return clientCard.getClientsById();
     }
 }

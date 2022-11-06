@@ -1,41 +1,56 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.EquipmentDao;
 import com.lviv.iot.domain.Equipment;
+import com.lviv.iot.domain.Event;
+import com.lviv.iot.exception.EquipmentNotFoundException;
+import com.lviv.iot.repository.EquipmentRepository;
 import com.lviv.iot.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class EquipmentServiceImpl implements EquipmentService {
     @Autowired
-    EquipmentDao equipmentDao;
+    private EquipmentRepository equipmentRepository;
 
     @Override
     public List<Equipment> findAll() {
-        return equipmentDao.findAll();
+        return equipmentRepository.findAll();
     }
 
     @Override
-    public Optional<Equipment> findById(Integer id) {
-        return equipmentDao.findById(id);
+    public Equipment findById(Integer id) {
+        return equipmentRepository.findById(id)
+                .orElseThrow(() -> new EquipmentNotFoundException(id));
     }
 
     @Override
-    public int create(Equipment equipment) {
-        return equipmentDao.create(equipment);
+    public Equipment create(Equipment equipment) {
+        return equipmentRepository.save(equipment);
     }
 
     @Override
-    public int update(Integer id, Equipment equipment) {
-        return equipmentDao.update(id, equipment);
+    public void update(Integer id, Equipment newEquipment) {
+        Equipment equipment = equipmentRepository.findById(id)
+                .orElseThrow(() -> new EquipmentNotFoundException(id));
+        equipment.setName(newEquipment.getName());
+        equipmentRepository.save(equipment);
     }
 
     @Override
-    public int delete(Integer id) {
-        return equipmentDao.delete(id);
+    public void delete(Integer id) {
+        Equipment equipment = equipmentRepository.findById(id)
+                .orElseThrow(() -> new EquipmentNotFoundException(id));
+        equipmentRepository.delete(equipment);
+    }
+
+    @Override
+    public Set<Event> findEventsById(Integer id) {
+        Equipment equipment = equipmentRepository.findById(id)
+                .orElseThrow(() -> new EquipmentNotFoundException(id));
+        return equipment.getEvents();
     }
 }

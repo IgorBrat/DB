@@ -1,41 +1,64 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.EventDao;
+import com.lviv.iot.domain.Equipment;
 import com.lviv.iot.domain.Event;
+import com.lviv.iot.domain.EventEquipment;
+import com.lviv.iot.exception.EventNotFoundException;
+import com.lviv.iot.repository.EventRepository;
 import com.lviv.iot.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class EventServiceImpl implements EventService {
     @Autowired
-    EventDao eventDao;
+    private EventRepository eventRepository;
 
     @Override
     public List<Event> findAll() {
-        return eventDao.findAll();
+        return eventRepository.findAll();
     }
 
     @Override
-    public Optional<Event> findById(Integer id) {
-        return eventDao.findById(id);
+    public Event findById(Integer id) {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
     }
 
     @Override
-    public int create(Event event) {
-        return eventDao.create(event);
+    public Event create(Event event) {
+        return eventRepository.save(event);
     }
 
     @Override
-    public int update(Integer id, Event event) {
-        return eventDao.update(id, event);
+    public void update(Integer id, Event newEvent) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
+        event.setName(newEvent.getName());
+        eventRepository.save(event);
     }
 
     @Override
-    public int delete(Integer id) {
-        return eventDao.delete(id);
+    public void delete(Integer id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
+        eventRepository.delete(event);
+    }
+
+    @Override
+    public Set<Equipment> findEquipmentsById(Integer id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
+        return event.getEquipments();
+    }
+
+    @Override
+    public List<EventEquipment> findEquipmentsAndQuantityById(Integer id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException(id));
+        return event.getEquipmentsRelation();
     }
 }

@@ -1,36 +1,48 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.CityDao;
 import com.lviv.iot.domain.City;
+import com.lviv.iot.exception.CityNotFoundException;
+import com.lviv.iot.repository.CityRepository;
 import com.lviv.iot.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CityServiceImpl implements CityService {
     @Autowired
-    private CityDao cityDao;
+    private CityRepository cityRepository;
 
     @Override
     public List<City> findAll() {
-        return cityDao.findAll();
+        return cityRepository.findAll();
     }
 
     @Override
-    public int create(City city) {
-        return cityDao.create(city);
+    public City findById(Integer cityId) {
+        return cityRepository.findById(cityId)
+                .orElseThrow(() -> new CityNotFoundException(cityId));
     }
 
     @Override
-    public int update(String cityName, String regionName, City city) {
-        return cityDao.update(cityName, regionName, city);
+    public City create(City city) {
+        return cityRepository.save(city);
     }
 
     @Override
-    public int delete(String cityName, String regionName) {
-        return cityDao.delete(cityName, regionName);
+    public void update(Integer cityId, City newCity) {
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(() -> new CityNotFoundException(cityId));
+        city.setName(newCity.getName());
+        city.setRegionName(newCity.getRegionName());
+        cityRepository.save(city);
+    }
+
+    @Override
+    public void delete(Integer cityId) {
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(() -> new CityNotFoundException(cityId));
+        cityRepository.delete(city);
     }
 }

@@ -1,41 +1,48 @@
 package com.lviv.iot.service.impl;
 
-import com.lviv.iot.dao.UserDao;
 import com.lviv.iot.domain.User;
+import com.lviv.iot.exception.UserNotFoundException;
+import com.lviv.iot.repository.UserRepository;
 import com.lviv.iot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
     public List<User> findAll() {
-        return userDao.findAll();
+        return userRepository.findAll();
     }
 
     @Override
-    public Optional<User> findById(Integer id) {
-        return userDao.findById(id);
+    public User findById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
-    public int create(User user) {
-        return userDao.create(user);
+    public User create(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public int update(Integer id, User user) {
-        return userDao.update(id, user);
+    public void update(Integer userId, User newUser) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        user.setEmail(newUser.getEmail());
+        user.setPhone(newUser.getPhone());
+        userRepository.save(user);
     }
 
     @Override
-    public int delete(Integer id) {
-        return userDao.delete(id);
+    public void delete(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        userRepository.delete(user);
     }
 }
