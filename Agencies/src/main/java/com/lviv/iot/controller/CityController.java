@@ -4,6 +4,7 @@ import com.lviv.iot.domain.City;
 import com.lviv.iot.dto.CityDto;
 import com.lviv.iot.dto.assembler.CityDtoAssembler;
 import com.lviv.iot.service.CityService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,12 @@ public class CityController {
         City newCity = cityService.create(city);
         CityDto cityDto = cityDtoAssembler.toModel(newCity);
         return new ResponseEntity<>(cityDto, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/procedure_inserts")
+    public ResponseEntity<?> insertTenCities(@RequestBody JSONObject jsonObject) {
+        cityService.insertTenCities(jsonObject.getAsString("city_name"), jsonObject.getAsString("region_name"));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(value = "/{cityId}")

@@ -11,6 +11,7 @@ import com.lviv.iot.service.AnimatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -95,6 +96,11 @@ public class AnimatorServiceImpl implements AnimatorService {
         Animator animator =  animatorRepository.findById(id)
                 .orElseThrow(() -> new AnimatorNotFoundException(id));
         return animator.getOrders();
+    }
+
+    @Override
+    public BigDecimal getAverageSalary() {
+        return animatorRepository.getAverageSalary();
     }
 
     @Override

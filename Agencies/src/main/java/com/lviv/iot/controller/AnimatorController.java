@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -92,5 +93,11 @@ public class AnimatorController {
         Link selfLink = linkTo(methodOn(AnimatorController.class).getOrdersById(id)).withSelfRel();
         CollectionModel<OrderDto> orderDtos = orderDtoAssembler.toCollectionModel(orders, selfLink);
         return new ResponseEntity<>(orderDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/avg_salary")
+    public ResponseEntity<BigDecimal> getAverageSalary() {
+        BigDecimal avgSalary = animatorService.getAverageSalary();
+        return new ResponseEntity<>(avgSalary, HttpStatus.OK);
     }
 }
