@@ -104,6 +104,11 @@ public class AnimatorServiceImpl implements AnimatorService {
     }
 
     @Override
+    public void addAnimatorAgencyRelationship(String animatorSurname, String animatorName, String agency_name, String owner) {
+        animatorRepository.addAnimatorAgencyRelationship(animatorSurname, animatorName, agency_name, owner);
+    }
+
+    @Override
     public void delete(Integer id) {
         Animator animator = animatorRepository.findById(id)
                 .orElseThrow(() -> new AnimatorNotFoundException(id));

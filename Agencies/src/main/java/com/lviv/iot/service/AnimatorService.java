@@ -15,4 +15,6 @@ public interface AnimatorService extends GeneralService<Animator, Integer> {
     Set<Agency> findAgenciesById(Integer id);
     Set<Order> findOrdersById(Integer id);
     BigDecimal getAverageSalary();
+    void addAnimatorAgencyRelationship(String animatorSurname, String animatorName,
+                                       String agency_name, String owner);
 }

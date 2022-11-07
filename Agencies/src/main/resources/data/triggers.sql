@@ -14,9 +14,8 @@ BEGIN
 		SET MESSAGE_TEXT = 'Foreign key error: No equipment shop with such id';
 	END IF;
 END //
-DELIMITER ;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS UpdateEquipmentCheckShop //
 CREATE TRIGGER UpdateEquipmentCheckShop
 	BEFORE UPDATE
@@ -30,9 +29,8 @@ BEGIN
 		SET MESSAGE_TEXT = 'Foreign key error: No equipment shop with such id';
 	END IF;
 END //
-DELIMITER ;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS UpdateEquipmentShopCheckId //
 CREATE TRIGGER UpdateEquipmentShopCheckId
 	BEFORE UPDATE
@@ -46,9 +44,8 @@ BEGIN
 		SET MESSAGE_TEXT = 'Foreign key error: Can`t update row with record present in related table';
 	END IF;
 END //
-DELIMITER ;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS DeleteEquipmentShopCheckId //
 CREATE TRIGGER DeleteEquipmentShopCheckId
 	BEFORE DELETE
@@ -62,9 +59,8 @@ BEGIN
 		SET MESSAGE_TEXT = 'Foreign key error: Can`t delete row with record present in related table';
 	END IF;
 END //
-DELIMITER ;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS CheckPhoneCardinality //
 CREATE TRIGGER CheckPhoneCardinality
 	BEFORE INSERT
@@ -75,9 +71,8 @@ BEGIN
 		SET MESSAGE_TEXT = 'Value error: phone can`t be less 10 sybmols';
 	END IF;
 END //
-DELIMITER ;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS CheckEmail //
 CREATE TRIGGER CheckEmail
 	BEFORE INSERT
@@ -88,9 +83,8 @@ BEGIN
 		SET MESSAGE_TEXT = 'Value error: invalid email format';
 	END IF;
 END //
-DELIMITER ;
 
-DELIMITER //
+
 DROP TRIGGER IF EXISTS ForbidDeleteOrder //
 CREATE TRIGGER ForbidDeleteOrder
 	BEFORE DELETE

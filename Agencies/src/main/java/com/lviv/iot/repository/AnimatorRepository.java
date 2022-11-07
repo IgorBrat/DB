@@ -10,6 +10,10 @@ import java.math.BigDecimal;
 
 @Repository
 public interface AnimatorRepository extends JpaRepository<Animator, Integer> {
+    @Procedure("AddAnimatorAgencyRelationship")
+    void addAnimatorAgencyRelationship(String animatorSurname, String animatorName,
+                                       String agency_name, String owner);
+
     @Query(value = "CALL CalcAverageSalary();", nativeQuery = true)
     BigDecimal getAverageSalary();
 }

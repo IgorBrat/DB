@@ -1,7 +1,7 @@
 USE `boklach`;
 
-DROP PROCEDURE IF EXISTS CityTestInserts;
 DELIMITER //
+DROP PROCEDURE IF EXISTS CityTestInserts //
 CREATE PROCEDURE CityTestInserts (
 	IN new_city_name VARCHAR(40),
     IN new_region_name VARCHAR(40))
@@ -19,10 +19,9 @@ BEGIN
         ITERATE label1;
 	END WHILE;
 END //
-DELIMITER ;
 
-DROP PROCEDURE IF EXISTS UserParamInsert;
-DELIMITER //
+
+DROP PROCEDURE IF EXISTS UserParamInsert //
 CREATE PROCEDURE UserParamInsert (
 	IN new_phone VARCHAR(12),
     IN new_email VARCHAR(100))
@@ -30,13 +29,32 @@ BEGIN
 	INSERT INTO `user` (phone, email) VALUES (new_phone, new_email);
     SELECT id, phone, email FROM `user` WHERE phone = new_phone;
 END //
-DELIMITER ;
 
-DROP PROCEDURE IF EXISTS CalcAverageSalary;
-DELIMITER //
+
+DROP PROCEDURE IF EXISTS CalcAverageSalary //
 CREATE PROCEDURE CalcAverageSalary()
 BEGIN
-	DECLARE label VARCHAR(20);
 	SELECT GetAverageSalary() AS average_salary;
+END //
+
+DROP PROCEDURE IF EXISTS AddAnimatorAgencyRelationship //
+CREATE PROCEDURE AddAnimatorAgencyRelationship(
+	IN anim_surname VARCHAR(50),
+    IN anim_name VARCHAR(50),
+    IN ag_name VARCHAR(50),
+    IN ag_owner VARCHAR(50))
+BEGIN
+	DECLARE ag_id, an_id INT;
+    SELECT id INTO ag_id FROM `agency` WHERE name = ag_name AND owner = ag_owner;
+    SELECT id INTO an_id FROM `animator` WHERE surname = anim_surname AND name = anim_name;
+    IF (an_id IS NULL)
+    THEN SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Null value: no such animator found';
+	END IF;
+	IF (ag_id IS NULL)
+    THEN SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Null value: no such agency found';
+	END IF;
+	INSERT INTO `agency_animator` (agency_id, animator_id) VALUES (ag_id, an_id);
 END //
 DELIMITER ;
