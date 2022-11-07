@@ -37,6 +37,7 @@ BEGIN
 	SELECT GetAverageSalary() AS average_salary;
 END //
 
+
 DROP PROCEDURE IF EXISTS AddAnimatorAgencyRelationship //
 CREATE PROCEDURE AddAnimatorAgencyRelationship(
 	IN anim_surname VARCHAR(50),
@@ -56,5 +57,30 @@ BEGIN
 		SET MESSAGE_TEXT = 'Null value: no such agency found';
 	END IF;
 	INSERT INTO `agency_animator` (agency_id, animator_id) VALUES (ag_id, an_id);
+END //
+
+
+DROP PROCEDURE IF EXISTS CreateTablesWithCursor //
+CREATE PROCEDURE CreateTablesWithCursor()
+BEGIN
+	DECLARE done BOOL DEFAULT false;
+    DECLARE agency_name VARCHAR(50);
+    DECLARE my_cursor CURSOR
+    FOR SELECT name FROM `agency`;
+    
+    DECLARE CONTINUE HANDLER
+	FOR NOT FOUND SET done = true;
+    
+    OPEN my_cursor;
+    my_loop: LOOP
+		FETCH my_cursor INTO agency_name;
+        IF (done = true) THEN LEAVE my_loop;
+        END IF;
+        SET @temp_query = CONCAT('CREATE TABLE IF NOT EXISTS ', agency_name, DATE_FORMAT(NOW(), "_%Y_%m_%d_%H_%i_%s"), ' (', agency_name, '1 INT, ', agency_name, '2 BOOL);');
+		PREPARE my_query FROM @temp_query;
+        EXECUTE my_query;
+        DEALLOCATE PREPARE my_query;
+    END LOOP;
+    CLOSE my_cursor;
 END //
 DELIMITER ;

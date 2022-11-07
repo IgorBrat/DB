@@ -11,4 +11,5 @@ public interface AgencyService extends GeneralService<Agency, Integer> {
     void update(Integer id, Agency newAgency, Integer cityId, Integer userId);
     List<Agency> findAgenciesByCityId(Integer cityId);
     Set<Animator> findAnimatorsById(Integer id);
+    void createTablesWithCursor();
 }
