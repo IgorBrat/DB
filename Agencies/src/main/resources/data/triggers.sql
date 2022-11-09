@@ -61,8 +61,8 @@ BEGIN
 END //
 
 
-DROP TRIGGER IF EXISTS CheckPhoneCardinality //
-CREATE TRIGGER CheckPhoneCardinality
+DROP TRIGGER IF EXISTS CheckPhoneCardinalityInsert //
+CREATE TRIGGER CheckPhoneCardinalityInsert
 	BEFORE INSERT
 	ON `boklach`.`user` FOR EACH ROW
 BEGIN
@@ -73,8 +73,20 @@ BEGIN
 END //
 
 
-DROP TRIGGER IF EXISTS CheckEmail //
-CREATE TRIGGER CheckEmail
+DROP TRIGGER IF EXISTS CheckPhoneCardinalityUpdate //
+CREATE TRIGGER CheckPhoneCardinalityUpdate
+    BEFORE UPDATE
+    ON `boklach`.`user` FOR EACH ROW
+BEGIN
+    IF (LENGTH(NEW.phone) < 10)
+    THEN SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Value error: phone can`t be less 10 sybmols';
+    END IF;
+END //
+
+
+DROP TRIGGER IF EXISTS CheckEmailInsert //
+CREATE TRIGGER CheckEmailInsert
 	BEFORE INSERT
 	ON `boklach`.`user` FOR EACH ROW
 BEGIN
@@ -82,6 +94,18 @@ BEGIN
     THEN SIGNAL SQLSTATE '45000'
 		SET MESSAGE_TEXT = 'Value error: invalid email format';
 	END IF;
+END //
+
+
+DROP TRIGGER IF EXISTS CheckEmailUpdate //
+CREATE TRIGGER CheckEmailUpdate
+    BEFORE UPDATE
+    ON `boklach`.`user` FOR EACH ROW
+BEGIN
+    IF (NEW.email NOT RLIKE "^[a-zA-Z0-9][a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]*?[a-zA-Z0-9._-]?@[a-zA-Z0-9][a-zA-Z0-9._-]*?[a-zA-Z0-9]?\\.[a-zA-Z]{2,63}$")
+    THEN SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Value error: invalid email format';
+    END IF;
 END //
 
 
