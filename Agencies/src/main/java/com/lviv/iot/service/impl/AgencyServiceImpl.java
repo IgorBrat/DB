@@ -91,6 +91,11 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
+    public void createTablesWithCursor() {
+        agencyRepository.createTablesWithCursor();
+    }
+
+    @Override
     public void delete(Integer id) {
         Agency agency = agencyRepository.findById(id)
                 .orElseThrow(() -> new AgencyNotFoundException(id));

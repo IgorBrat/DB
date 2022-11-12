@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(userId));
         userRepository.delete(user);
     }
+
+    @Override
+    public User addUserWithProcedure(String phone, String email) {
+        return userRepository.addUserWithProcedure(phone, email);
+    }
 }

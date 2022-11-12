@@ -37,6 +37,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         Equipment equipment = equipmentRepository.findById(id)
                 .orElseThrow(() -> new EquipmentNotFoundException(id));
         equipment.setName(newEquipment.getName());
+        equipment.setShopId(newEquipment.getShopId());
         equipmentRepository.save(equipment);
     }
 

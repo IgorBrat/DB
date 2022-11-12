@@ -65,7 +65,7 @@ public class AgencyController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "cities/{cityId}")
+    @GetMapping(value = "/cities/{cityId}")
     public ResponseEntity<CollectionModel<AgencyDto>> getAgenciesByCityId(@PathVariable Integer cityId) {
         List<Agency> agencies = agencyService.findAgenciesByCityId(cityId);
         Link selfLink = linkTo(methodOn(AgencyController.class).getAgenciesByCityId(cityId)).withSelfRel();
@@ -79,5 +79,11 @@ public class AgencyController {
         Link selfLink = linkTo(methodOn(AgencyController.class).getAnimatorsById(id)).withSelfRel();
         CollectionModel<AnimatorDto> animatorDtos = animatorDtoAssembler.toCollectionModel(animators, selfLink);
         return new ResponseEntity<>(animatorDtos, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/cursor")
+    public ResponseEntity<?> createTablesWithCursor() {
+        agencyService.createTablesWithCursor();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

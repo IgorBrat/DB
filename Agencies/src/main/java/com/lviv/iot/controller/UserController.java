@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -51,5 +52,13 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Integer userId) {
         userService.delete(userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Transactional
+    @PostMapping(value = "procedure_insert")
+    public ResponseEntity<UserDto> addUserWithProcedure(@RequestBody User user) {
+        User newUser = userService.addUserWithProcedure(user.getPhone(), user.getEmail());
+        UserDto userDto = userDtoAssembler.toModel(newUser);
+        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 }

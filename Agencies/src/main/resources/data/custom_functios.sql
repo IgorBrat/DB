@@ -1,0 +1,11 @@
+USE `boklach`;
+
+DROP FUNCTION IF EXISTS GetAverageSalary;
+DELIMITER //
+CREATE FUNCTION GetAverageSalary()
+RETURNS DECIMAL(8, 2)
+DETERMINISTIC
+BEGIN
+	RETURN (SELECT AVG(salary_per_hour) FROM `animator`);
+END //
+DELIMITER ;

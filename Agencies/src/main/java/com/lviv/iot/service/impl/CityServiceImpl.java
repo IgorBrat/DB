@@ -45,4 +45,9 @@ public class CityServiceImpl implements CityService {
                 .orElseThrow(() -> new CityNotFoundException(cityId));
         cityRepository.delete(city);
     }
+
+    @Override
+    public void insertTenCities(String cityName, String regionName) {
+        cityRepository.insertTenCities(cityName, regionName);
+    }
 }

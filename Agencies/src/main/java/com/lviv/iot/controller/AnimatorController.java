@@ -10,6 +10,7 @@ import com.lviv.iot.dto.assembler.AgencyDtoAssembler;
 import com.lviv.iot.dto.assembler.AnimatorDtoAssembler;
 import com.lviv.iot.dto.assembler.OrderDtoAssembler;
 import com.lviv.iot.service.AnimatorService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
@@ -17,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -92,5 +95,19 @@ public class AnimatorController {
         Link selfLink = linkTo(methodOn(AnimatorController.class).getOrdersById(id)).withSelfRel();
         CollectionModel<OrderDto> orderDtos = orderDtoAssembler.toCollectionModel(orders, selfLink);
         return new ResponseEntity<>(orderDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/avg_salary")
+    public ResponseEntity<BigDecimal> getAverageSalary() {
+        BigDecimal avgSalary = animatorService.getAverageSalary();
+        return new ResponseEntity<>(avgSalary, HttpStatus.OK);
+    }
+
+    @Transactional
+    @PostMapping(value = "/relation")
+    public ResponseEntity<?> addAnimatorAgencyRelationship(@RequestBody JSONObject jsonObject) {
+        animatorService.addAnimatorAgencyRelationship(jsonObject.getAsString("animator_surname"), jsonObject.getAsString("animator_name"),
+                jsonObject.getAsString("agency_name"), jsonObject.getAsString("agency_owner"));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
